@@ -16,10 +16,11 @@ namespace HotelProject.Controllers
         {
             db = context;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
+        //public IActionResult Index()
+        //{
+        //    return View(db.Products.ToList());
+        //}
+
     }
 }
 

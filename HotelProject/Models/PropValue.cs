@@ -10,6 +10,9 @@ namespace HotelProject.Models
         public int Id { get; set; }
 
         public int ProductId { get; set; }
+        public Product Product { get; set; }
         public int PropertieId { get; set; }
-    }
+        public Propertie Propertie { get; set; }
+
+}
 }
