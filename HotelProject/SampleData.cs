@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using HotelProject.Models;
 
-namespace HotelProject
+namespace HotelProject.Models
 {
     public class SampleData
     {
@@ -12,7 +11,8 @@ namespace HotelProject
         {
             if (!context.Products.Any())
             {
-                context.Products.AddRange(
+                context.Products.AddRange
+                    (
                     new Product
                     {
                         Title = "Hotel",
@@ -20,8 +20,8 @@ namespace HotelProject
                         ShortDescription = "Super",
                         Price = 600
                     }
-
                     );
+                    
                 context.SaveChanges();
             }
         }

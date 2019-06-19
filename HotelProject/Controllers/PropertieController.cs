@@ -17,7 +17,7 @@ namespace HotelProject.Controllers
         }
         public IActionResult Propertie_Index()
         {
-            return View();
+            return View(db.Properties.ToList());
         }
         [HttpGet]
         public IActionResult Propertie_Add()

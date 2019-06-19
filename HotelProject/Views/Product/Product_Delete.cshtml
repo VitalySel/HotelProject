@@ -1,0 +1,39 @@
+﻿@model HotelProject.Models.Product
+@{
+    ViewData["Title"] = "Product_Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Удаление товара</title>
+</head>
+<body>
+    <dl>
+        <dt>Название товара</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt>Описание</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt>Краткое Описание</dt>
+        <dd>
+            @Html.DisplayFor(model => model.ShortDescription)
+        </dd>
+        <dt>Цена</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+        <dt>Картинка</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Image)
+        </dd>
+    </dl>
+    @using (Html.BeginForm())
+    {
+        <input type="submit" value="Удалить" />
+    }
+</body>
+</html>

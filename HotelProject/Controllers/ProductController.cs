@@ -17,7 +17,7 @@ namespace HotelProject.Controllers
         }
         public IActionResult Product_Index()
         {
-            return View();
+            return View(db.Products.ToList());
         }
         [HttpGet]
         public IActionResult Product_Add()
