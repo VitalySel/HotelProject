@@ -1,0 +1,32 @@
+﻿@model HotelProject.Models.Category
+@{
+    ViewData["Title"] = "Admin_Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+    <html>
+    <head>
+        <title>Удаление категории</title>
+    </head>
+    <body>
+        <dl>
+            <dt>Название категории</dt>
+            <dd>
+                @Html.DisplayFor(model => model.Title)
+            </dd>
+            <dt>Цена</dt>
+            <dd>
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+            <dt>Картинка</dt>
+            <dd>
+                @Html.DisplayFor(model => model.Image)
+            </dd>
+        </dl>
+        @using (Html.BeginForm())
+        {
+            <input type="submit" value="Удалить" />
+        }
+    </body>
+</html>
+

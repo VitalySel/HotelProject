@@ -1,0 +1,36 @@
+﻿@model IEnumerable<HotelProject.Models.Category>
+@{
+    ViewData["Title"] = "Admin_Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Список категорий</title>
+</head>
+<body>
+    <h3>Список категорий</h3>
+    <table>
+        <tr>
+            <td>Название:</td>
+            <td>Описание:</td>
+            <td>Картинка:</td>
+        </tr>
+        @foreach (var category in Model)
+        {
+            <tr>
+                <td>@category.Title</td>
+                <td>@category.Description</td>
+                <td>@category.Image</td>
+                <td><a href="~/Category/Admin_Edit/@category.Id">Изменить</a></td>
+                <td><a href="~/Category/Admin_Delete/@category.Id">Удалить</a></td>
+            </tr>
+        }
+    </table>
+    <a href="~/Category/Admin_Add">Добавить</a>
+
+
+</body>
+</html>

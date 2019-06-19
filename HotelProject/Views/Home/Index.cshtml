@@ -1,4 +1,4 @@
-﻿@model IEnumerable<HotelProject.Models.Category>
+﻿@model IEnumerable<HotelProject.Models.Product>
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -10,6 +10,14 @@
     <title>Отель</title>
 </head>
 <body>
-    <h3>Выберите </h3>
+    <h3>Админская панель</h3>
+    <h4>Товар</h4>
+    <a href="~/Product/Product_index">Перейти</a>
+    <h4>Категории</h4>
+    <a href="~/Category/Admin_index">Перейти</a>
+    <h4>Опции</h4>
+    <a href="~/Option/Option_index">Перейти</a>
+    <h4>Свойства</h4>
+    <a href="~/Propertie/Propertie_index">Перейти</a>
 </body>
 </html>

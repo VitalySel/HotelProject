@@ -1,0 +1,33 @@
+﻿@model HotelProject.Models.Category
+@{
+    ViewData["Title"] = "Admin_Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+    <html>
+    <head>
+        <title>Добавление категории</title>
+    </head>
+    <body>
+        <div>
+            <h3>Добавление категории</h3>
+            @using (Html.BeginForm())
+            {
+                @Html.LabelFor(model => model.Title, "Название категории")
+                <br />
+                @Html.EditorFor(model => model.Title)
+                <br /><br />
+                @Html.LabelFor(model => model.Description, "Описание")
+                <br />
+                @Html.EditorFor(model => model.Description)
+                <br /><br />
+                @Html.LabelFor(model => model.Image, "Картинка")
+                <br />
+                @Html.EditorFor(model => model.Image)
+                <br /><br />
+                <input type="submit" value="Добавить" />
+            }
+        </div>
+    </body>
+</html>

@@ -1,0 +1,39 @@
+﻿@model HotelProject.Models.Option
+@{
+    ViewData["Title"] = "Option_Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Редактирование категории</title>
+</head>
+<body>
+    <div>
+        <h3>Редактор категории</h3>
+        <form method="post">
+            <input type="hidden" value="@ViewBag.OptionId" name="OptionId" />
+            <fieldset>
+                @Html.HiddenFor(m => m.Id)
+                <p>
+                    @Html.LabelFor(m => m.Title, "Название опции")
+                    <br />
+                    @Html.EditorFor(m => m.Title)
+                </p>
+                <p>
+                    @Html.LabelFor(m => m.Description, "Описание")
+                    <br />
+                    @Html.EditorFor(m => m.Description)
+                </p>
+                <p>
+                    @Html.LabelFor(m => m.Price, "Цена")
+                    <br />
+                    @Html.EditorFor(m => m.Price)
+                </p>
+                <p><input type="submit" value="Отправить" /></p>
+            </fieldset>
+        </form>
+    </div>
+</body>
+</html>

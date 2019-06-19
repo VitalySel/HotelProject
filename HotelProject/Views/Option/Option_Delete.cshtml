@@ -1,0 +1,31 @@
+﻿@model HotelProject.Models.Option
+@{
+    ViewData["Title"] = "Option_Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Удаление опции</title>
+        </head>
+        <body>
+            <dl>
+                <dt>Название опции</dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Title)
+                </dd>
+                <dt>Описание</dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+                <dt> Цена</dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Price)
+                </dd>
+            </dl>
+            @using (Html.BeginForm())
+            {
+                <input type="submit" value="Удалить" />
+            }
+        </body>
+    </html>

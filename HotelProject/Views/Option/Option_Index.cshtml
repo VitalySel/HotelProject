@@ -1,0 +1,36 @@
+﻿@model IEnumerable<HotelProject.Models.Option>
+@{
+    ViewData["Title"] = "Option_Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Список опций</title>
+</head>
+<body>
+    <h3>Список категорий</h3>
+    <table>
+        <tr>
+            <td>Название:</td>
+            <td>Описание:</td>
+            <td>Цена:</td>
+        </tr>
+        @foreach (var option in Model)
+        {
+            <tr>
+                <td>@option.Title</td>
+                <td>@option.Description</td>
+                <td>@option.Price</td>
+                <td><a href="~/Option/Option_Edit/@option.Id">Изменить</a></td>
+                <td><a href="~/Option/Option_Delete/@option.Id">Удалить</a></td>
+            </tr>
+        }
+    </table>
+    <a href="~/Option/Option_Add">Добавить</a>
+
+
+</body>
+</html>

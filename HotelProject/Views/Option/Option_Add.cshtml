@@ -1,0 +1,33 @@
+﻿@model HotelProject.Models.Option
+@{
+    ViewData["Title"] = "Option_Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+    <html>
+    <head>
+        <title>Добавление опций</title>
+    </head>
+    <body>
+        <div>
+            <h3>Добавление опций</h3>
+            @using (Html.BeginForm())
+            {
+                @Html.LabelFor(model => model.Title, "Название опции")
+                <br />
+                @Html.EditorFor(model => model.Title)
+                <br /><br />
+                @Html.LabelFor(model => model.Description, "Описание")
+                <br />
+                @Html.EditorFor(model => model.Description)
+                <br /><br />
+                @Html.LabelFor(model => model.Price, "Цена")
+                <br />
+                @Html.EditorFor(model => model.Price)
+                <br /><br />
+                <input type="submit" value="Добавить" />
+            }
+        </div>
+    </body>
+</html>

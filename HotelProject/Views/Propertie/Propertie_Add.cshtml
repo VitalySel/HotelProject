@@ -1,0 +1,33 @@
+﻿@model HotelProject.Models.Propertie
+@{
+    ViewData["Title"] = "Propertie_Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+     <html>
+        <head>
+            <title>Добавление свойств</title>
+        </head>
+        <body>
+            <div>
+                <h3>Добавление свойств</h3>
+                @using (Html.BeginForm())
+                {
+                    @Html.LabelFor(model => model.Title, "Название опции")
+                    <br />
+                    @Html.EditorFor(model => model.Title)
+                    <br /><br />
+                    @Html.LabelFor(model => model.Description, "Описание")
+                    <br />
+                    @Html.EditorFor(model => model.Description)
+                    <br /><br />
+                    @Html.LabelFor(model => model.Image, "Картинка")
+                    <br />
+                    @Html.EditorFor(model => model.Image)
+                    <br /><br />
+                    <input type="submit" value="Добавить" />
+                }
+            </div>
+        </body>
+    </html>

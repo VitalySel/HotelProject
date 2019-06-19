@@ -1,0 +1,39 @@
+﻿@model HotelProject.Models.Category
+@{
+    ViewData["Title"] = "Admin_Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Редактирование категории</title>
+        </head>
+        <body>
+            <div>
+                <h3>Редактор категории</h3>
+                <form method="post">
+                    <input type="hidden" value="@ViewBag.CategoryId" name="CategoryId" />
+                    <fieldset>
+                        @Html.HiddenFor(m => m.Id)
+                        <p>
+                            @Html.LabelFor(m => m.Title, "Название категории")
+                            <br />
+                            @Html.EditorFor(m => m.Title)
+                        </p>
+                        <p>
+                            @Html.LabelFor(m => m.Description, "Описание")
+                            <br />
+                            @Html.EditorFor(m => m.Description)
+                        </p>
+                        <p>
+                            @Html.LabelFor(m => m.Image, "Картинка")
+                            <br />
+                            @Html.EditorFor(m => m.Image)
+                        </p>
+                        <p><input type="submit" value="Отправить" /></p>
+                    </fieldset>
+                </form>
+            </div>
+        </body>
+    </html>
+
