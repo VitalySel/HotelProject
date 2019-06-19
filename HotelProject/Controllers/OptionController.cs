@@ -17,7 +17,7 @@ namespace HotelProject.Controllers
         }
         public IActionResult Option_Index()
         {
-            return View();
+            return View(db.Options.ToList());
         }
         [HttpGet]
         public IActionResult Option_Add()
