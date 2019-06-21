@@ -1,0 +1,33 @@
+﻿@model IEnumerable<HotelProject.Models.User>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Список пользователей</title>
+</head>
+<body>
+    <h3>Список пользователей</h3>
+    <table>
+        <tr>
+            <td>Имя:</td>
+            <td>Почта:</td>
+            <td>Телефон:</td>
+        </tr>
+        @foreach (var user in Model)
+        {
+    <tr>
+        <td>@user.Login</td>
+        <td>@user.Password</td>
+        <td>@user.RoleId</td>
+        <td><a href="~/User/Edit/@user.Id">Изменить</a></td>
+        <td><a href="~/User/Delete/@user.Id">Удалить</a></td>
+    </tr>
+        }
+    </table>
+    <a href="~/User/Add">Добавить</a>
+</body>
+</html>

@@ -1,0 +1,31 @@
+﻿@model HotelProject.Models.User
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Удаление пользователей</title>
+</head>
+<body>
+    <dl>
+        <dt>Логин</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Login)
+        </dd>
+        <dt>Пароль</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Password)
+        </dd>
+        <dt>Роль</dt>
+        <dd>
+            @Html.DisplayFor(model => model.RoleId)
+        </dd>
+    </dl>
+    @using (Html.BeginForm())
+    {
+        <input type="submit" value="Удалить" />
+    }
+</body>
+</html>

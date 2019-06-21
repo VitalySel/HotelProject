@@ -1,0 +1,43 @@
+﻿@model HotelProject.Models.Comment
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Удаление комментария</title>
+</head>
+<body>
+    <dl>
+        <dt>Комментарий</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Feedback)
+        </dd>
+        <dt>Имя</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>Фамилия</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Surname)
+        </dd>
+        <dt>Телефон</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+        <dt>Почта</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt>Оценка</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Rating)
+        </dd>
+    </dl>
+    @using (Html.BeginForm())
+    {
+        <input type="submit" value="Удалить" />
+    }
+</body>
+</html>

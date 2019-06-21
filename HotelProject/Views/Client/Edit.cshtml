@@ -1,0 +1,39 @@
+﻿@model HotelProject.Models.Client
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Редактирование клиента</title>
+</head>
+<body>
+    <div>
+        <h3>Редактор клиентв</h3>
+        <form method="post">
+            <input type="hidden" value="@ViewBag.ClientId" name="ClientId" />
+            <fieldset>
+                @Html.HiddenFor(m => m.Id)
+                <p>
+                    @Html.LabelFor(m => m.Name, "Имя")
+                    <br />
+                    @Html.EditorFor(m => m.Name)
+                </p>
+                <p>
+                    @Html.LabelFor(m => m.Email, "Почта")
+                    <br />
+                    @Html.EditorFor(m => m.Email)
+                </p>
+                <p>
+                    @Html.LabelFor(m => m.Phone, "Телефон")
+                    <br />
+                    @Html.EditorFor(m => m.Phone)
+                </p>
+                <p><input type="submit" value="Отправить" /></p>
+            </fieldset>
+        </form>
+    </div>
+</body>
+</html>

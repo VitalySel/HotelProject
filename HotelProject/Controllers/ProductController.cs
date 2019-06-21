@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HotelProject.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace HotelProject.Controllers
 {
@@ -22,6 +23,10 @@ namespace HotelProject.Controllers
         [HttpGet]
         public IActionResult Product_Add()
         {
+            SelectList categor = new SelectList(db.Categories, "Id", "Title");
+            ViewBag.Categories = categor;
+            //SelectList prop = new SelectList(db.Properties, "Id", "Title");
+            //ViewBag.Properties = prop;
             return View();
         }
         [HttpPost]
@@ -36,7 +41,14 @@ namespace HotelProject.Controllers
         public IActionResult Product_Edit(int id)
         {
             Product product = db.Products.Find(id);
-            return View(product);
+            if (product != null)
+            {
+                SelectList categor = new SelectList(db.Categories, "Id", "Title", product.CategoryId);
+                ViewBag.Categories = categor;
+                return View(product);
+            }
+            return View();
+
         }
         [HttpPost]
         public IActionResult Product_Edit(Product product)

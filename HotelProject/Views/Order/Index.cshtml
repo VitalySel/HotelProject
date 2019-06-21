@@ -1,0 +1,45 @@
+﻿@model IEnumerable<HotelProject.Models.Order>
+@{
+    ViewData["Title"] = "Option_Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Список заказов</title>
+</head>
+<body>
+    <h3>Список заказов</h3>
+    <table>
+        <tr>
+            <td>Время:</td>
+            <td>Комментарий:</td>
+            <td>Имя:</td>
+            <td>Фамилия:</td>
+            <td>Количество:</td>
+            <td>Дети:</td>
+            <td>Телефон:</td>
+            <td>Почта:</td>
+        </tr>
+        @foreach (var order in Model)
+        {
+    <tr>
+        <td>@order.DataTimeOrder</td>
+        <td>@order.Commentary</td>
+        <td>@order.Name</td>
+        <td>@order.Surname</td>
+        <td>@order.Count</td>
+        <td>@order.Child</td>
+        <td>@order.Phone</td>
+        <td>@order.Email</td>
+        <td><a href="~/Order/Edit/@order.Id">Изменить</a></td>
+        <td><a href="~/Order/Delete/@order.Id">Удалить</a></td>
+    </tr>
+        }
+    </table>
+
+
+</body>
+</html>

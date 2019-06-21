@@ -40,6 +40,11 @@
                     <br />
                     @Html.EditorFor(m => m.Image)
                 </p>
+                <p>
+                    @Html.LabelFor(m => m.CategoryId, "Картинка")
+                    <br />
+                    @Html.DropDownListFor(model => model.CategoryId, ViewBag.Categories as SelectList)
+                </p>
                 <p><input type="submit" value="Отправить" /></p>
             </fieldset>
         </form>

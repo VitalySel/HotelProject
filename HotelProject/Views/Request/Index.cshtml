@@ -1,0 +1,36 @@
+﻿@model IEnumerable<HotelProject.Models.Request>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Список запросов</title>
+</head>
+<body>
+    <h3>Список запросов</h3>
+    <table>
+        <tr>
+            <td>Телефон:</td>
+            <td>Почта:</td>
+            <td>Время:</td>
+            <td>Текст:</td>
+
+        </tr>
+        @foreach (var request in Model)
+        {
+    <tr>
+        <td>@request.Phone</td>
+        <td>@request.Email</td>
+        <td>@request.DataTimeRequest</td>
+        <td>@request.Text</td>
+        <td><a href="~/User/Edit/@request.Id">Изменить</a></td>
+        <td><a href="~/User/Delete/@request.Id">Удалить</a></td>
+    </tr>
+        }
+    </table>
+</body>
+</html>
+

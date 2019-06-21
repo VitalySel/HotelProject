@@ -1,0 +1,52 @@
+﻿@model HotelProject.Models.Order
+@{
+    ViewData["Title"] = "Option_Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Удаление заказа</title>
+</head>
+<body>
+    <dl>
+        <dt>Время</dt>
+        <dd>
+            @Html.DisplayFor(model => model.DataTimeOrder)
+        </dd>
+        <dt>Комментарий</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Commentary)
+        </dd>
+        <dt>Имя</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>Фамилия</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Surname)
+        </dd>
+        <dt>Количество</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Count)
+        </dd>
+        <dt>Дети</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Child)
+        </dd>
+        <dt>Телефон</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+        <dt>Почта</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+    </dl>
+    @using (Html.BeginForm())
+    {
+        <input type="submit" value="Удалить" />
+    }
+</body>
+</html>
+

@@ -1,0 +1,64 @@
+﻿@model HotelProject.Models.Order
+@{
+    ViewData["Title"] = "Option_Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Редактирование заказов</title>
+</head>
+<body>
+    <div>
+        <h3>Редактор заказов</h3>
+        <form method="post">
+            <input type="hidden" value="@ViewBag.OrderId" name="OrderId" />
+            <fieldset>
+                @Html.HiddenFor(m => m.Id)
+                <p>
+                    @Html.LabelFor(m => m.Commentary, "Комментарий")
+                    <br />
+                    @Html.EditorFor(m => m.Commentary)
+                </p>
+                <p>
+                    @Html.LabelFor(m => m.DataTimeOrder, "Время")
+                    <br />
+                    @Html.EditorFor(m => m.DataTimeOrder)
+                </p>
+                <p>
+                    @Html.LabelFor(m => m.Name, "Имя")
+                    <br />
+                    @Html.EditorFor(m => m.Name)
+                </p>
+                <p>
+                    @Html.LabelFor(m => m.Surname, "Фамилия")
+                    <br />
+                    @Html.EditorFor(m => m.Surname)
+                </p>
+                <p>
+                    @Html.LabelFor(m => m.Count, "Количество")
+                    <br />
+                    @Html.EditorFor(m => m.Count)
+                </p>
+                <p>
+                    @Html.LabelFor(m => m.Child, "Дети")
+                    <br />
+                    @Html.EditorFor(m => m.Child)
+                </p>
+                <p>
+                    @Html.LabelFor(m => m.Phone, "Телефон")
+                    <br />
+                    @Html.EditorFor(m => m.Phone)
+                </p>
+                <p>
+                    @Html.LabelFor(m => m.Email, "Почта")
+                    <br />
+                    @Html.EditorFor(m => m.Email)
+                </p>
+                <p><input type="submit" value="Отправить" /></p>
+            </fieldset>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,34 @@
+﻿@model HotelProject.Models.Client
+@{
+    ViewData["Title"] = "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Добавление клиентов</title>
+</head>
+<body>
+    <div>
+        <h3>Добавление клиентов</h3>
+        @using (Html.BeginForm())
+        {
+            @Html.LabelFor(model => model.Name, "Имя")
+            <br />
+            @Html.EditorFor(model => model.Name)
+            <br /><br />
+            @Html.LabelFor(model => model.Email, "Почта")
+            <br />
+            @Html.EditorFor(model => model.Email)
+            <br /><br />
+            @Html.LabelFor(model => model.Phone, "Телефон")
+            <br />
+            @Html.EditorFor(model => model.Phone)
+            <br /><br />
+            <input type="submit" value="Добавить" />
+        }
+    </div>
+</body>
+</html>
+

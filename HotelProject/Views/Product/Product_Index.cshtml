@@ -20,18 +20,20 @@
             <td>Короткое описание:</td>
             <td>Цена:</td>
             <td>Картинка:</td>
+            <td>Категория:</td>
         </tr>
         @foreach (var product in Model)
         {
-            <tr>
-                <td>@product.Title</td>
-                <td>@product.Description</td>
-                <td>@product.ShortDescription</td>
-                <td>@product.Price</td>
-                <td>@product.Image</td>
-                <td><a href="~/Product/Product_Edit/@product.Id">Изменить</a></td>
-                <td><a href="~/Product/Product_Delete/@product.Id">Удалить</a></td>
-            </tr>
+    <tr>
+        <td>@product.Title</td>
+        <td>@product.Description</td>
+        <td>@product.ShortDescription</td>
+        <td>@product.Price</td>
+        <td>@product.Image</td>
+        <td>@product.CategoryId</td>
+        <td><a href="~/Product/Product_Edit/@product.Id">Изменить</a></td>
+        <td><a href="~/Product/Product_Delete/@product.Id">Удалить</a></td>
+    </tr>
         }
     </table>
     <a href="~/Product/Product_Add">Добавить</a>

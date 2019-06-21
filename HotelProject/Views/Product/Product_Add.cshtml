@@ -33,9 +33,9 @@
             <br />
             @Html.EditorFor(model => model.Image)
             <br /><br />
-            @Html.LabelFor(model => model.CategoryId, "Категория")
-            <br />
-            @Html.EditorFor(model => model.CategoryId)
+            @Html.DropDownListFor(model => model.CategoryId, ViewBag.Categories as SelectList)
+            <br /><br />
+            @*@Html.CheckBoxFor(model => model.Propert)*@
             <br /><br />
             <input type="submit" value="Добавить" />
         }
