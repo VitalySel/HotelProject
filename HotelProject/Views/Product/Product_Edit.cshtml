@@ -1,8 +1,16 @@
-﻿@model HotelProject.Models.Product
+﻿@model HotelProject.Models.ProductWithPropertiesViewModel
 @{
     ViewData["Title"] = "Product_Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+@{
+        foreach(var prop in ViewBag.Prop)
+        {
+            Model.PropertyList = new List<PropertiesViewModel>();
+            Model.PropertyList.Add(prop);
+        }
+    }
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,6 +52,17 @@
                     @Html.LabelFor(m => m.CategoryId, "Картинка")
                     <br />
                     @Html.DropDownListFor(model => model.CategoryId, ViewBag.Categories as SelectList)
+                </p>
+                <p>
+                    <b>Дополнительные свойства</b>
+        <br />
+        @foreach (var prop in Model.PropertyList)
+        {
+
+                <input type="checkbox" id="@prop.Title" asp-for="@prop.Selected" value="@prop.Selected" checked="@prop.Selected"/>
+                <label for="@prop.Title.">@prop.Title</label>
+            
+        }
                 </p>
                 <p><input type="submit" value="Отправить" /></p>
             </fieldset>

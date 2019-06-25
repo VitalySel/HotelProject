@@ -8,10 +8,10 @@ using HotelProject.Models;
 
 namespace HotelProject.Controllers
 {
-    public class PropertieoldController : Controller
+    public class PropertieController : Controller
     {
         HotelContext db;
-        public PropertieoldController(HotelContext context)
+        public PropertieController(HotelContext context)
         {
             db = context;
         }

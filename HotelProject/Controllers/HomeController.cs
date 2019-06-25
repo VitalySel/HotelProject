@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HotelProject.Models;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
 
 namespace HotelProject.Controllers
 {

@@ -25,8 +25,8 @@ namespace HotelProject.Controllers
         {
             SelectList categor = new SelectList(db.Categories, "Id", "Title");
             ViewBag.Categories = categor;
-            //SelectList prop = new SelectList(db.Properties, "Id", "Title");
-            //ViewBag.Properties = prop;
+           
+
             return View();
         }
         [HttpPost]
@@ -38,15 +38,18 @@ namespace HotelProject.Controllers
             return RedirectToAction("Product_Index");
         }
         [HttpGet]
-        public IActionResult Product_Edit(int id)
+        public IActionResult Product_Edit(int? id)
         {
             Product product = db.Products.Find(id);
             if (product != null)
             {
                 SelectList categor = new SelectList(db.Categories, "Id", "Title", product.CategoryId);
                 ViewBag.Categories = categor;
+               
                 return View(product);
             }
+            var propertieList = db.Properties.ToList();
+            ViewBag.Prop = propertieList;
             return View();
 
         }

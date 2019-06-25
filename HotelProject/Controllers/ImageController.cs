@@ -5,14 +5,22 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using HotelProject.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Rendering;
+
+
 
 namespace HotelProject.Controllers
 {
     public class ImageController : Controller
     {
         HotelContext db;
-        public ImageController(HotelContext context)
+        IHostingEnvironment _appEnvironment;
+        public ImageController(HotelContext context, IHostingEnvironment appEnvironment)
         {
+            _appEnvironment = appEnvironment;
             db = context;
         }
         public IActionResult Index()
@@ -22,15 +30,25 @@ namespace HotelProject.Controllers
         [HttpGet]
         public IActionResult Add()
         {
+            SelectList imag = new SelectList(db.Products, "Id", "Title");
+            ViewBag.Products = imag;
             return View();
         }
         [HttpPost]
-        public IActionResult Add(Image image)
+        public async Task<IActionResult> Add(IFormFile uploadedFile, int productId)
         {
-            db.Images.Add(image);
-            db.SaveChanges();
-
-            return RedirectToAction("Index");
+            if (uploadedFile != null)
+            {
+                string path = "/files/" + uploadedFile.FileName;
+                using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                {
+                    await uploadedFile.CopyToAsync(fileStream);
+                }
+                Image file = new Image { Title = uploadedFile.FileName, ImagePath = path, ProductId = productId };
+                db.Images.Add(file);
+                db.SaveChanges();
+            }
+            return RedirectToAction("Index");   
         }
         [HttpGet]
         public IActionResult Edit(int id)

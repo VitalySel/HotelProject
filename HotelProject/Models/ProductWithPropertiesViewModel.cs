@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace HotelProject.Models
 {
-    public class Product
+    public class ProductWithPropertiesViewModel
     {
         public int Id { get; set; }
         public string Title { get; set; }
@@ -17,6 +17,6 @@ namespace HotelProject.Models
         public int CategoryId { get; set; }
         public Category Category { get; set; }
 
-        //public List<Propertie> PropertyList { get; set; }
+        public List<PropertiesViewModel> PropertyList { get; set; }
     }
 }
