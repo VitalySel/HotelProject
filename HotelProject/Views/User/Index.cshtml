@@ -3,31 +3,43 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<!DOCTYPE html>
+<h2>Пользователи</h2>
 
-<html>
-<head>
-    <title>Список пользователей</title>
-</head>
-<body>
-    <h3>Список пользователей</h3>
-    <table>
+<p>
+    <a asp-action="Add">Создать</a>
+</p>
+<table class="table">
+    <thead>
         <tr>
-            <td>Имя:</td>
-            <td>Почта:</td>
-            <td>Телефон:</td>
+            <th>
+                @Html.DisplayNameFor(model => model.Login)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Password)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RoleId)
+            </th>
         </tr>
-        @foreach (var user in Model)
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
         {
-    <tr>
-        <td>@user.Login</td>
-        <td>@user.Password</td>
-        <td>@user.RoleId</td>
-        <td><a href="~/User/Edit/@user.Id">Изменить</a></td>
-        <td><a href="~/User/Delete/@user.Id">Удалить</a></td>
-    </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Login)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Password)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoleId)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a> |
+                </td>
+            </tr>
         }
-    </table>
-    <a href="~/User/Add">Добавить</a>
-</body>
-</html>
+    </tbody>
+</table>

@@ -3,7 +3,40 @@
     ViewData["Title"] = "Delete";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<!DOCTYPE html>
+
+<h2>Удаление</h2>
+<div>
+    <h4>Клиент</h4>
+    <dl class="dl-horizontal">
+        <dt>Имя</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>Почта</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt>Телефон</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+    </dl>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Удалить" class="btn btn-default" /> |
+        <a asp-action="Index">Вернуться назад</a>
+    </form>
+</div>
+
+
+
+
+
+
+
+
+
+@*<!DOCTYPE html>
 <html>
 <head>
     <title>Удаление клиента</title>
@@ -28,4 +61,4 @@
         <input type="submit" value="Удалить" />
     }
 </body>
-</html>
+</html>*@

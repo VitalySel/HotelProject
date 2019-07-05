@@ -21,6 +21,19 @@ namespace HotelProject.Controllers
             return View(db.Requests.ToList());
         }
         [HttpGet]
+        public IActionResult Add()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Add(Request request)
+        {
+            db.Requests.Add(request);
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
         public IActionResult Edit(int id)
         {
             Request request = db.Requests.Find(id);

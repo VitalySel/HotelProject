@@ -3,34 +3,44 @@
     ViewData["Title"] = "Admin_Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<h2>Категории</h2>
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <title>Список категорий</title>
-</head>
-<body>
-    <h3>Список категорий</h3>
-    <table>
+<p>
+    <a asp-action="Admin_Add">Создать</a>
+</p>
+<table class="table">
+    <thead>
         <tr>
-            <td>Название:</td>
-            <td>Описание:</td>
-            <td>Картинка:</td>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Image)
+            </th>
         </tr>
-        @foreach (var category in Model)
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
         {
-            <tr>
-                <td>@category.Title</td>
-                <td>@category.Description</td>
-                <td>@category.Image</td>
-                <td><a href="~/Category/Admin_Edit/@category.Id">Изменить</a></td>
-                <td><a href="~/Category/Admin_Delete/@category.Id">Удалить</a></td>
-            </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                <p><img src="@Url.Content(item.Image)"></p>
+            </td>
+            <td>
+                <a asp-action="Admin_Edit" asp-route-id="@item.Id">Редактировать</a> |
+                <a asp-action="Admin_Delete" asp-route-id="@item.Id">Удалить</a> |
+                <a asp-area="" asp-controller="Product" asp-action="ListForCategories" asp-route-categoryId="@item.Id">Продукты</a>
+            </td>
+        </tr>
         }
-    </table>
-    <a href="~/Category/Admin_Add">Добавить</a>
-
-
-</body>
-</html>
+    </tbody>
+</table>

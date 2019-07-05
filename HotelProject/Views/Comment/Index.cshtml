@@ -3,37 +3,61 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<!DOCTYPE html>
+<h2>Комментарии</h2>
 
-<html>
-<head>
-    <title>Список комментариев</title>
-</head>
-<body>
-    <h3>Список комментариев</h3>
-    <table>
+<p>
+    <a asp-action="Admin_Add">Создать</a>
+</p>
+<table class="table">
+    <thead>
         <tr>
-            <td>Комментарий:</td>
-            <td>Имя:</td>
-            <td>Фамилия:</td>
-            <td>Телефон:</td>
-            <td>Почта:</td>
-            <td>Оценка:</td>
+            <th>
+                @Html.DisplayNameFor(model => model.Feedback)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Surname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rating)
+            </th>
         </tr>
-        @foreach (var comment in Model)
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
         {
-    <tr>
-        <td>@comment.Feedback</td>
-        <td>@comment.Name</td>
-        <td>@comment.Surname</td>
-        <td>@comment.Phone</td>
-        <td>@comment.Email</td>
-        <td>@comment.Rating</td>
-        <td><a href="~/Comment/Edit/@comment.Id">Изменить</a></td>
-        <td><a href="~/Comment/Delete/@comment.Id">Удалить</a></td>
-    </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Feedback)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Surname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rating)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a> |
+            </td>
+        </tr>
         }
-    </table>
-    @*<a href="~/Comment/Add">Добавить</a>*@
-</body>
-</html>
+    </tbody>
+</table>

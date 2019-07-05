@@ -5,14 +5,20 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HotelProject.Models;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace HotelProject.Controllers
 {
     public class PropertieController : Controller
     {
         HotelContext db;
-        public PropertieController(HotelContext context)
+        IHostingEnvironment _appEnvironment;
+        public PropertieController(HotelContext context, IHostingEnvironment appEnvironment)
         {
+            _appEnvironment = appEnvironment;
             db = context;
         }
         public IActionResult Propertie_Index()
@@ -25,8 +31,17 @@ namespace HotelProject.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Propertie_Add(Propertie propertie)
+        public async Task <IActionResult> Propertie_Add(Propertie propertie, IFormFile uploadedFile)
         {
+            if (uploadedFile != null)
+            {
+                string path = "/files/" + uploadedFile.FileName;
+                using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                {
+                    await uploadedFile.CopyToAsync(fileStream);
+                }
+                propertie.Image = path;
+            }
             db.Properties.Add(propertie);
             db.SaveChanges();
 

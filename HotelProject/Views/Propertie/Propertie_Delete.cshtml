@@ -3,30 +3,27 @@
     ViewData["Title"] = "Propertie_Delete";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-    <!DOCTYPE html>
-        <html>
-        <head>
-            <title>Удаление свойств</title>
-        </head>
-        <body>
-            <dl>
-                <dt>Название свойства</dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Title)
-                </dd>
-                <dt>Описание</dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Description)
-                </dd>
-                <dt>Картинка</dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Image)
-                </dd>
-            </dl>
-            @using (Html.BeginForm())
-            {
-                <input type="submit" value="Удалить" />
-            }
-        </body>
-    </html>
+<h2>Удаление</h2>
+<div>
+    <h4>Свойство</h4>
+    <dl class="dl-horizontal">
+        <dt>Название</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt>Описание</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt>Картинка</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Image)
+        </dd>
+    </dl>
+    <form asp-action="Propertie_Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Удалить" class="btn btn-default" /> |
+        <a asp-action="Propertie_Index">Вернуться назад</a>
+        <a asp-action="Index">Вернуться на главную</a>
+    </form>
+</div>

@@ -3,8 +3,49 @@
     ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<h2>Редактирование</h2>
 
-<!DOCTYPE html>
+<h4>Пользователи</h4>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" method="post" asp-controller="User" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" value="@ViewBag.UserId" name="UserId" />
+            <div class="form-group">
+                <label asp-for="Login" class="control-label"></label>
+                <input asp-for="Login" class="form-control" />
+                <span asp-validation-for="Login" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RoleId" class="control-label"></label>
+                <input asp-for="RoleId" class="form-control" />
+                <span asp-validation-for="RoleId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Вернуться назад</a>
+</div>
+
+
+
+
+
+
+
+
+
+@*<!DOCTYPE html>
 <html>
 <head>
     <title>Редактирование пользователей</title>
@@ -36,5 +77,5 @@
         </form>
     </div>
 </body>
-</html>
+</html>*@
 

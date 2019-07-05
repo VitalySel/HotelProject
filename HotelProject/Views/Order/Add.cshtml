@@ -1,17 +1,15 @@
 ﻿@model HotelProject.Models.Order
 @{
-    ViewData["Title"] = "Option_Edit";
+    ViewData["Title"] = "Add";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<h2>Добавление</h2>
 
-<h2>Редактирование</h2>
-
-<h4>Заказ</h4>
+<h4>Заказы</h4>
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit" method="post" asp-controller="Order" enctype="multipart/form-data">
+        <form asp-action="Add" asp-controller="Order" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" value="@ViewBag.OrderId" name="OrderId" />
             <div class="form-group">
                 <label asp-for="DataTimeOrder" class="control-label"></label>
                 <input asp-for="DataTimeOrder" class="form-control" />
@@ -52,8 +50,9 @@
                 <input asp-for="Email" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <input type="submit" value="Сохранить" class="btn btn-default" />
+                <input type="submit" value="Создать" class="btn btn-default" />
             </div>
         </form>
     </div>

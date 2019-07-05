@@ -3,34 +3,82 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<!DOCTYPE html>
+<h2>Request</h2>
 
-<html>
-<head>
-    <title>Список запросов</title>
-</head>
-<body>
-    <h3>Список запросов</h3>
-    <table>
-        <tr>
-            <td>Телефон:</td>
-            <td>Почта:</td>
-            <td>Время:</td>
-            <td>Текст:</td>
-
-        </tr>
-        @foreach (var request in Model)
+<p>
+    <a asp-action="Add">Создать</a>
+</p>
+<table class="table">
+    <tbody>
+        @foreach (var item in Model)
         {
-    <tr>
-        <td>@request.Phone</td>
-        <td>@request.Email</td>
-        <td>@request.DataTimeRequest</td>
-        <td>@request.Text</td>
-        <td><a href="~/User/Edit/@request.Id">Изменить</a></td>
-        <td><a href="~/User/Delete/@request.Id">Удалить</a></td>
-    </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataTimeRequest)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Text)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a> |
+                </td>
+            </tr>
         }
-    </table>
-</body>
-</html>
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<!DOCTYPE html>
+
+    <html>
+    <head>
+        <title>Список запросов</title>
+    </head>
+    <body>
+        <h3>Список запросов</h3>
+        <table>
+            <tr>
+                <td>Телефон:</td>
+                <td>Почта:</td>
+                <td>Время:</td>
+                <td>Текст:</td>
+
+            </tr>
+            @foreach (var request in Model)
+            {
+        <tr>
+            <td>@request.Phone</td>
+            <td>@request.Email</td>
+            <td>@request.DataTimeRequest</td>
+            <td>@request.Text</td>
+            <td><a href="~/User/Edit/@request.Id">Изменить</a></td>
+            <td><a href="~/User/Delete/@request.Id">Удалить</a></td>
+        </tr>
+            }
+        </table>
+    </body>
+    </html>*@
 

@@ -3,7 +3,45 @@
     ViewData["Title"] = "Product_Delete";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<!DOCTYPE html>
+<h2>Удаление</h2>
+<div>
+    <h4>Продукт</h4>
+    <dl class="dl-horizontal">
+        <dt>Название</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt>Описание</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt>Краткое описание</dt>
+        <dd>
+            @Html.DisplayFor(model => model.ShortDescription)
+        </dd>
+        <dt>Картинка</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Image)
+        </dd>
+        <dt>Цена</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+    </dl>
+    <form asp-action="Product_Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Удалить" class="btn btn-default" /> |
+        <a asp-action="Product_Index">Вернуться назад</a>
+        <a asp-action="Index">Вернуться на главную</a>
+    </form>
+</div>
+
+
+
+
+
+
+@*<!DOCTYPE html>
 <html>
 <head>
     <title>Удаление товара</title>
@@ -40,4 +78,4 @@
         <input type="submit" value="Удалить" />
     }
 </body>
-</html>
+</html>*@

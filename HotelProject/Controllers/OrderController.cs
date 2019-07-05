@@ -19,7 +19,20 @@ namespace HotelProject.Controllers
         public IActionResult Index()
         {
             return View(db.Orders.ToList());
-        }       
+        }
+        [HttpGet]
+        public IActionResult Add()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Add(Order order)
+        {
+            db.Orders.Add(order);
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
         [HttpGet]
         public IActionResult Edit(int id)
         {

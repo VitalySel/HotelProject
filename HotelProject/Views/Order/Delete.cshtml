@@ -3,50 +3,42 @@
     ViewData["Title"] = "Option_Delete";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Удаление заказа</title>
-</head>
-<body>
-    <dl>
-        <dt>Время</dt>
+<<h2>Удаление</h2>
+<div>
+    <h4>Заказы</h4>
+    <dl class="dl-horizontal">
+        <dt>Название</dt>
         <dd>
             @Html.DisplayFor(model => model.DataTimeOrder)
         </dd>
-        <dt>Комментарий</dt>
+        <dt>Описание</dt>
         <dd>
             @Html.DisplayFor(model => model.Commentary)
         </dd>
-        <dt>Имя</dt>
+        <dt>Цена</dt>
         <dd>
             @Html.DisplayFor(model => model.Name)
         </dd>
-        <dt>Фамилия</dt>
         <dd>
             @Html.DisplayFor(model => model.Surname)
         </dd>
-        <dt>Количество</dt>
         <dd>
             @Html.DisplayFor(model => model.Count)
         </dd>
-        <dt>Дети</dt>
         <dd>
             @Html.DisplayFor(model => model.Child)
         </dd>
-        <dt>Телефон</dt>
         <dd>
             @Html.DisplayFor(model => model.Phone)
         </dd>
-        <dt>Почта</dt>
         <dd>
             @Html.DisplayFor(model => model.Email)
         </dd>
     </dl>
-    @using (Html.BeginForm())
-    {
-        <input type="submit" value="Удалить" />
-    }
-</body>
-</html>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Удалить" class="btn btn-default" /> |
+        <a asp-action="Index">Вернуться назад</a>
+    </form>
+</div>
 

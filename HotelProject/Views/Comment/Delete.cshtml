@@ -3,13 +3,11 @@
     ViewData["Title"] = "Delete";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Удаление комментария</title>
-</head>
-<body>
-    <dl>
+
+<h2>Удаление</h2>
+<div>
+    <h4>Комментарий</h4>
+    <dl class="dl-horizontal">
         <dt>Комментарий</dt>
         <dd>
             @Html.DisplayFor(model => model.Feedback)
@@ -30,14 +28,61 @@
         <dd>
             @Html.DisplayFor(model => model.Email)
         </dd>
-        <dt>Оценка</dt>
+        <dt>Рейтинг</dt>
         <dd>
             @Html.DisplayFor(model => model.Rating)
         </dd>
     </dl>
-    @using (Html.BeginForm())
-    {
-        <input type="submit" value="Удалить" />
-    }
-</body>
-</html>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Удалить" class="btn btn-default" /> |
+        <a asp-action="Index">Вернуться на главную</a>
+    </form>
+</div>
+
+
+
+
+
+
+
+
+
+@*<!DOCTYPE html>
+    <html>
+    <head>
+        <title>Удаление комментария</title>
+    </head>
+    <body>
+        <dl>
+            <dt>Комментарий</dt>
+            <dd>
+                @Html.DisplayFor(model => model.Feedback)
+            </dd>
+            <dt>Имя</dt>
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+            <dt>Фамилия</dt>
+            <dd>
+                @Html.DisplayFor(model => model.Surname)
+            </dd>
+            <dt>Телефон</dt>
+            <dd>
+                @Html.DisplayFor(model => model.Phone)
+            </dd>
+            <dt>Почта</dt>
+            <dd>
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+            <dt>Оценка</dt>
+            <dd>
+                @Html.DisplayFor(model => model.Rating)
+            </dd>
+        </dl>
+        @using (Html.BeginForm())
+        {
+            <input type="submit" value="Удалить" />
+        }
+    </body>
+    </html>*@
