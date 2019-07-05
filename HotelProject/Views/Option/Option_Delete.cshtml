@@ -3,29 +3,26 @@
     ViewData["Title"] = "Option_Delete";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-    <!DOCTYPE html>
-        <html>
-        <head>
-            <title>Удаление опции</title>
-        </head>
-        <body>
-            <dl>
-                <dt>Название опции</dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Title)
-                </dd>
-                <dt>Описание</dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Description)
-                </dd>
-                <dt> Цена</dt>
-                <dd>
-                    @Html.DisplayFor(model => model.Price)
-                </dd>
-            </dl>
-            @using (Html.BeginForm())
-            {
-                <input type="submit" value="Удалить" />
-            }
-        </body>
-    </html>
+<h2>Удаление</h2>
+<div>
+    <h4>Опции</h4>
+    <dl class="dl-horizontal">
+        <dt>Название</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt>Описание</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt>Цена</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+    </dl>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Удалить" class="btn btn-default" /> |
+        <a asp-action="Index">Вернуться назад</a>
+    </form>
+</div>

@@ -14,5 +14,5 @@ namespace HotelProject.Models
         public int PropertieId { get; set; }
         public Propertie Propertie { get; set; }
 
-}
+    }
 }

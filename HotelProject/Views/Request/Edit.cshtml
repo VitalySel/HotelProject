@@ -1,0 +1,99 @@
+﻿@model HotelProject.Models.Request
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Редактирование</h2>
+
+<h4>Request</h4>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" method="post" asp-controller="Propertie" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" value="@ViewBag.PropertieId" name="PropertieId" />
+            <div class="form-group">
+                <label asp-for="Phone" class="control-label"></label>
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DataTimeRequest" class="control-label"></label>
+                <input asp-for="DataTimeRequest" class="form-control" />
+                <span asp-validation-for="DataTimeRequest" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Text" class="control-label"></label>
+                <input asp-for="Text" class="form-control" />
+                <span asp-validation-for="Text" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Вернуться на главную</a>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<!DOCTYPE html>
+    <html>
+    <head>
+        <title>Редактирование</title>
+    </head>
+    <body>
+        <div>
+            <h3>Редактор </h3>
+            <form method="post">
+                <input type="hidden" value="@ViewBag.RequestId" name="RequestId" />
+                <fieldset>
+                    @Html.HiddenFor(m => m.Id)
+                    <p>
+                        @Html.LabelFor(m => m.Phone, "Телефон")
+                        <br />
+                        @Html.EditorFor(m => m.Phone)
+                    </p>
+                    <p>
+                        @Html.LabelFor(m => m.Email, "Почта")
+                        <br />
+                        @Html.EditorFor(m => m.Email)
+                    </p>
+                    <p>
+                        @Html.LabelFor(m => m.DataTimeRequest, "Время")
+                        <br />
+                        @Html.EditorFor(m => m.DataTimeRequest)
+                    </p>
+                    <p>
+                        @Html.LabelFor(m => m.Text, "Текст")
+                        <br />
+                        @Html.EditorFor(m => m.Text)
+                    </p>
+                    <p><input type="submit" value="Отправить" /></p>
+                </fieldset>
+            </form>
+        </div>
+    </body>
+    </html>*@

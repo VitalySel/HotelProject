@@ -5,14 +5,20 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using HotelProject.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace HotelProject.Controllers
 {
     public class CategoryController : Controller
     {
         HotelContext db;
-        public CategoryController(HotelContext context)
+        IHostingEnvironment _appEnvironment;
+        public CategoryController(HotelContext context, IHostingEnvironment appEnvironment)
         {
+            _appEnvironment = appEnvironment;
             db = context;
         }
         public IActionResult Admin_Index()
@@ -25,8 +31,17 @@ namespace HotelProject.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Admin_Add(Category category)
+        public async Task <IActionResult> Admin_Add(Category category, IFormFile uploadedFile)
         {
+            if (uploadedFile != null)
+            {
+                string path = "/files/" + uploadedFile.FileName;
+                using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                {
+                    await uploadedFile.CopyToAsync(fileStream);
+                }
+                category.Image = path;
+            }
             db.Categories.Add(category);
             db.SaveChanges();
 
@@ -40,9 +55,19 @@ namespace HotelProject.Controllers
             return View(category);
         }
         [HttpPost]
-        public IActionResult Admin_Edit(Category category)
+        public async Task<IActionResult> Admin_Edit(Category category, IFormFile uploadedFile)
         {
             db.Entry(category).State = EntityState.Modified;
+            if (uploadedFile != null)
+            {
+                string path = "/files/" + uploadedFile.FileName;
+                using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                {
+                    await uploadedFile.CopyToAsync(fileStream);
+                }
+                category.Image = path;
+            }
+            
             db.SaveChanges();
             return RedirectToAction("Admin_Index");
         }

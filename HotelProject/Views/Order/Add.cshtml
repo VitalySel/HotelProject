@@ -1,0 +1,63 @@
+﻿@model HotelProject.Models.Order
+@{
+    ViewData["Title"] = "Add";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Добавление</h2>
+
+<h4>Заказы</h4>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Add" asp-controller="Order" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="DataTimeOrder" class="control-label"></label>
+                <input asp-for="DataTimeOrder" class="form-control" />
+                <span asp-validation-for="DataTimeOrder" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Commentary" class="control-label"></label>
+                <input asp-for="Commentary" class="form-control" />
+                <span asp-validation-for="Commentary" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Surname" class="control-label"></label>
+                <input asp-for="Surname" class="form-control" />
+                <span asp-validation-for="Surname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Count" class="control-label"></label>
+                <input asp-for="Count" class="form-control" />
+                <span asp-validation-for="Count" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Child" class="control-label"></label>
+                <input asp-for="Child" class="form-control" />
+                <span asp-validation-for="Child" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Phone" class="control-label"></label>
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Создать" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Вернуться назад</a>
+</div>

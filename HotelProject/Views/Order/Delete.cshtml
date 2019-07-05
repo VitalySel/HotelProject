@@ -1,0 +1,44 @@
+﻿@model HotelProject.Models.Order
+@{
+    ViewData["Title"] = "Option_Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<<h2>Удаление</h2>
+<div>
+    <h4>Заказы</h4>
+    <dl class="dl-horizontal">
+        <dt>Название</dt>
+        <dd>
+            @Html.DisplayFor(model => model.DataTimeOrder)
+        </dd>
+        <dt>Описание</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Commentary)
+        </dd>
+        <dt>Цена</dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dd>
+            @Html.DisplayFor(model => model.Surname)
+        </dd>
+        <dd>
+            @Html.DisplayFor(model => model.Count)
+        </dd>
+        <dd>
+            @Html.DisplayFor(model => model.Child)
+        </dd>
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+    </dl>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Удалить" class="btn btn-default" /> |
+        <a asp-action="Index">Вернуться назад</a>
+    </form>
+</div>
+

@@ -3,18 +3,15 @@
     ViewData["Title"] = "Admin_Delete";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<!DOCTYPE html>
-    <html>
-    <head>
-        <title>Удаление категории</title>
-    </head>
-    <body>
-        <dl>
+<h2>Удаление</h2>
+<div>
+    <h4>Категория</h4>
+        <dl class="dl-horizontal">
             <dt>Название категории</dt>
             <dd>
                 @Html.DisplayFor(model => model.Title)
             </dd>
-            <dt>Цена</dt>
+            <dt>Описание</dt>
             <dd>
                 @Html.DisplayFor(model => model.Description)
             </dd>
@@ -23,10 +20,10 @@
                 @Html.DisplayFor(model => model.Image)
             </dd>
         </dl>
-        @using (Html.BeginForm())
-        {
-            <input type="submit" value="Удалить" />
-        }
-    </body>
-</html>
-
+        <form asp-action="Admin_Delete">
+            <input type="hidden" asp-for="Id" />
+            <input type="submit" value="Удалить" class="btn btn-default" /> |
+            <a asp-action="Admin_Index">Вернуться назад</a>
+            <a asp-action="Index">Вернуться на главную</a>
+        </form>
+</div>

@@ -1,7 +1,82 @@
-﻿@model HotelProject.Models.Product
+﻿@model HotelProject.Models.ProductWithPropertiesViewModel
 @{
     ViewData["Title"] = "Product_Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Редактирование</h2>
+
+<h4>Продукт</h4>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Product_Edit" method="post" asp-controller="Product" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" value="@ViewBag.ProductId" name="ProductId" />
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ShortDescription" class="control-label"></label>
+                <input asp-for="ShortDescription" class="form-control" />
+                <span asp-validation-for="ShortDescription" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="file" name="uploadedFile" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Category</label><br />
+                @Html.DropDownListFor(model => model.CategoryId, ViewBag.Categories as SelectList)
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Product_Index">Вернуться назад</a>
+    <a asp-action="Index">Вернуться на главную</a>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*@{
+    foreach (var prop in ViewBag.Prop)
+    {
+        Model.PropertyList = new List<PropertiesViewModel>();
+        Model.PropertyList.Add(prop);
+    }
 }
 <!DOCTYPE html>
 <html>
@@ -40,10 +115,26 @@
                     <br />
                     @Html.EditorFor(m => m.Image)
                 </p>
+                <p>
+                    @Html.LabelFor(m => m.CategoryId, "Картинка")
+                    <br />
+                    @Html.DropDownListFor(model => model.CategoryId, ViewBag.Categories as SelectList)
+                </p>
+                <p>
+                    <b>Дополнительные свойства</b>
+                    <br />
+                    @foreach (var prop in Model.PropertyList)
+                    {
+
+                        <input type="checkbox" id="@prop.Title" asp-for="@prop.Selected" value="@prop.Selected" checked="@prop.Selected" />
+                        <label for="@prop.Title.">@prop.Title</label>
+
+                    }
+                </p>
                 <p><input type="submit" value="Отправить" /></p>
             </fieldset>
         </form>
     </div>
 </body>
-</html>
+</html>*@
 

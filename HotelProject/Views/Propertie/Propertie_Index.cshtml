@@ -4,34 +4,44 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!DOCTYPE html>
+<h2>Свойства</h2>
 
-<html>
-<head>
-    <title>Список опций</title>
-</head>
-<body>
-    <h3>Список категорий</h3>
-    <table>
+<p>
+    <a asp-action="Propertie_Add">Создать</a>
+</p>
+<table class="table">
+    <thead>
         <tr>
-            <td>Название:</td>
-            <td>Описание:</td>
-            <td>Цена:</td>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Image)
+            </th>
         </tr>
-        @foreach (var propertie in Model)
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
         {
             <tr>
-                <td>@propertie.Title</td>
-                <td>@propertie.Description</td>
-                <td>@propertie.Image</td>
-                <td><a href="~/Propertie/Propertie_Edit/@propertie.Id">Изменить</a></td>
-                <td><a href="~/Propertie/Propertie_Delete/@propertie.Id">Удалить</a></td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    <p><img src="@Url.Content(item.Image)"></p>
+                </td>
+                <td>
+                    <a asp-action="Propertie_Edit" asp-route-id="@item.Id">Редактировать</a> |
+                    <a asp-action="Propertie_Delete" asp-route-id="@item.Id">Удалить</a> |
+                </td>
             </tr>
         }
-    </table>
-    <a href="~/Propertie/Propertie_Add">Добавить</a>
-
-
-</body>
-</html>
+    </tbody>
+</table>
 
