@@ -12,6 +12,8 @@ namespace HotelProject.Models
         [Display(Name = "Имя")]
         public string Name { get; set; }
         [Display(Name = "Почта")]
+        [Required(ErrorMessage = "Не указана почта")]
+        [EmailAddress]
         public string Email { get; set; }
         [Display(Name = "Телефон")]
         public string Phone { get; set; }
