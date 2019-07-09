@@ -24,7 +24,7 @@ namespace HotelProject.Controllers
                 return View();
             }
             //return Content("не аутентифицирован");
-            return RedirectToAction("Login");
+            return RedirectToAction("Login", "Account");
         }
         public IActionResult About()
         {
