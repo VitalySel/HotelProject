@@ -31,21 +31,26 @@ namespace HotelProject.Controllers
             return View();
         }
         [HttpPost]
-        public async Task <IActionResult> Propertie_Add(Propertie propertie, IFormFile uploadedFile)
+        [ValidateAntiForgeryToken]
+        public async Task <IActionResult> Propertie_Add([Bind("Id,Title,Description")] Propertie propertie, IFormFile uploadedFile)
         {
-            if (uploadedFile != null)
+            if (ModelState.IsValid)
             {
-                string path = "/files/" + uploadedFile.FileName;
-                using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                if (uploadedFile != null)
                 {
-                    await uploadedFile.CopyToAsync(fileStream);
+                    string path = "/files/" + uploadedFile.FileName;
+                    using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                    {
+                        await uploadedFile.CopyToAsync(fileStream);
+                    }
+                    propertie.Image = path;
                 }
-                propertie.Image = path;
-            }
-            db.Properties.Add(propertie);
-            db.SaveChanges();
+                db.Properties.Add(propertie);
+                db.SaveChanges();
 
-            return RedirectToAction("Propertie_Index");
+                return RedirectToAction("Propertie_Index");
+            }
+            return View(propertie);
         }
         [HttpGet]
         public IActionResult Propertie_Edit(int id)
@@ -54,11 +59,16 @@ namespace HotelProject.Controllers
             return View(propertie);
         }
         [HttpPost]
-        public IActionResult Propertie_Edit(Propertie propertie)
+        [ValidateAntiForgeryToken]
+        public IActionResult Propertie_Edit([Bind("Id,Title,Description")] Propertie propertie)
         {
             db.Entry(propertie).State = EntityState.Modified;
-            db.SaveChanges();
-            return RedirectToAction("Propertie_Index");
+            if (ModelState.IsValid)
+            {
+                db.SaveChanges();
+                return RedirectToAction("Propertie_Index");
+            }
+            return View(propertie);
         }
         [HttpGet]
         public IActionResult Propertie_Delete(int id)
@@ -68,6 +78,7 @@ namespace HotelProject.Controllers
         }
 
         [HttpPost, ActionName("Propertie_Delete")]
+        [ValidateAntiForgeryToken]
         public IActionResult Propertie_DeleteConfirmed(int id)
         {
             Propertie b = db.Properties.Find(id);

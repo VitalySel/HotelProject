@@ -31,21 +31,25 @@ namespace HotelProject.Controllers
             return View();
         }
         [HttpPost]
-        public async Task <IActionResult> Admin_Add(Category category, IFormFile uploadedFile)
+        [ValidateAntiForgeryToken]
+        public async Task <IActionResult> Admin_Add([Bind("Id,Title,Description,Image")] Category category, IFormFile uploadedFile)
         {
-            if (uploadedFile != null)
+            if (ModelState.IsValid)
             {
-                string path = "/files/" + uploadedFile.FileName;
-                using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                if (uploadedFile != null)
                 {
-                    await uploadedFile.CopyToAsync(fileStream);
+                    string path = "/files/" + uploadedFile.FileName;
+                    using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                    {
+                        await uploadedFile.CopyToAsync(fileStream);
+                    }
+                    category.Image = path;
                 }
-                category.Image = path;
+                db.Categories.Add(category);
+                db.SaveChanges();
+                return RedirectToAction("Admin_Index");
             }
-            db.Categories.Add(category);
-            db.SaveChanges();
-
-            return RedirectToAction("Admin_Index");
+            return View(category);
         }
 
         [HttpGet]
@@ -55,21 +59,25 @@ namespace HotelProject.Controllers
             return View(category);
         }
         [HttpPost]
-        public async Task<IActionResult> Admin_Edit(Category category, IFormFile uploadedFile)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Admin_Edit([Bind("Id,Title,Description,Image")] Category category, IFormFile uploadedFile)
         {
             db.Entry(category).State = EntityState.Modified;
-            if (uploadedFile != null)
+            if (ModelState.IsValid)
             {
-                string path = "/files/" + uploadedFile.FileName;
-                using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                if (uploadedFile != null)
                 {
-                    await uploadedFile.CopyToAsync(fileStream);
+                    string path = "/files/" + uploadedFile.FileName;
+                    using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                    {
+                        await uploadedFile.CopyToAsync(fileStream);
+                    }
+                    category.Image = path;
                 }
-                category.Image = path;
+                db.SaveChanges();
+                return RedirectToAction("Admin_Index");
             }
-            
-            db.SaveChanges();
-            return RedirectToAction("Admin_Index");
+            return View(category);
         }
         [HttpGet]
         public IActionResult Admin_Delete(int id)
@@ -79,6 +87,7 @@ namespace HotelProject.Controllers
         }
 
         [HttpPost, ActionName("Admin_Delete")]
+        [ValidateAntiForgeryToken]
         public IActionResult Admin_DeleteConfirmed(int id)
         {
             Category b = db.Categories.Find(id);

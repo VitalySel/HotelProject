@@ -10,10 +10,15 @@ namespace HotelProject.Models
     {
         public int Id { get; set; }
         [Display(Name = "Название")]
+        [Required(ErrorMessage = "Не указано название")]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "Недопустимая длина")]
         public string Title { get; set; }
         [Display(Name = "Описание")]
+        [Required(ErrorMessage = "Не указано описание")]
+        [StringLength(150, MinimumLength = 3, ErrorMessage = "Недопустимая длина")]
         public string Description { get; set; }
         [Display(Name = "Цена")]
+        [Required(ErrorMessage = "Не указана цена")]
         public int Price { get; set; }
         [UIHint("Boolean")]
         public bool IsPublish { get; set; } 

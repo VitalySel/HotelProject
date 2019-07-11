@@ -10,9 +10,13 @@ namespace HotelProject.Models
     {
         public int Id { get; set; }
         [Display(Name = "Логин")]
+        [Required(ErrorMessage = "Не указан логин")]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "Недопустимая длина")]
         public string Login { get; set; }
         [Display(Name = "Пароль")]
         [DataType(DataType.Password)]
+        [Required(ErrorMessage = "Не указан пароль")]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "Недопустимая длина")]
         public string Password { get; set; }
 
         [Display(Name = "Роль")]

@@ -1,0 +1,6 @@
+﻿@model  HotelProject.Models.Propertie
+
+@Html.HiddenFor(x => x.Id)
+@Html.CheckBoxFor(x =>x.isChecked)
+@Html.LabelFor(x => x.isChecked,Model.Title)
+<br/>

@@ -10,5 +10,6 @@ namespace HotelProject.Models
     {
         public IEnumerable<Product> Products { get; set; }
         public SelectList Categories { get; set; }
+
     }
 }

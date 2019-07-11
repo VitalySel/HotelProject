@@ -1,4 +1,4 @@
-﻿@model HotelProject.Models.Product
+﻿@model HotelProject.Models.ProductWithPropertiesViewModel
 @{
     ViewData["Title"] = "Product_Add";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -34,9 +34,13 @@
                 @Html.DropDownListFor(model => model.CategoryId, ViewBag.Categories as SelectList)
             </div>
             <div class="checkbox">
-                @foreach (var propertie in ViewBag.Properties)
+                @for (int i = 0; i < Model.PropertyList.Count; i++)
                 {
-                    <input type="checkbox" name="@propertie.Title" id="@propertie.Id" /> @propertie.Title <br />
+
+                    <input type="checkbox" asp-for="@Model.PropertyList[i].isChecked" /> @Model.PropertyList[i].Title
+                    <input type="hidden" asp-for="@Model.PropertyList[i].Id" />
+                    <input type="hidden" asp-for="@Model.PropertyList[i].Title" />
+                    <br />
                 }
             </div>
 

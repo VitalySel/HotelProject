@@ -25,12 +25,16 @@ namespace HotelProject.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Option_Add(Option option)
+        [ValidateAntiForgeryToken]
+        public IActionResult Option_Add([Bind("Id,Title,Description,Price")] Option option)
         {
-            db.Options.Add(option);
-            db.SaveChanges();
-
-            return RedirectToAction("Option_Index");
+            if (ModelState.IsValid)
+            {
+                db.Options.Add(option);
+                db.SaveChanges();
+                return RedirectToAction("Option_Index");
+            }
+            return View(option); 
         }
         [HttpGet]
         public IActionResult Option_Edit(int id)
@@ -39,11 +43,16 @@ namespace HotelProject.Controllers
             return View(option);
         }
         [HttpPost]
-        public IActionResult Option_Edit(Option option)
+        [ValidateAntiForgeryToken]
+        public IActionResult Option_Edit([Bind("Id,Title,Description,Price")] Option option)
         {
             db.Entry(option).State = EntityState.Modified;
-            db.SaveChanges();
-            return RedirectToAction("Option_Index");
+            if (ModelState.IsValid)
+            {
+                db.SaveChanges();
+                return RedirectToAction("Option_Index");
+            }
+            return View(option);
         }
 
         [HttpGet]
@@ -54,6 +63,7 @@ namespace HotelProject.Controllers
         }
 
         [HttpPost, ActionName("Option_Delete")]
+        [ValidateAntiForgeryToken]
         public IActionResult Option_DeleteConfirmed(int id)
         {
             Option b = db.Options.Find(id);

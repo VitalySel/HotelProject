@@ -10,6 +10,8 @@ namespace HotelProject.Models
     {
         public int Id { get; set; }
         [Display(Name = "Название")]
+        [Required(ErrorMessage = "Не указано название")]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "Недопустимая длина")]
         public string Title { get; set; }
         [Display(Name = "Путь картинки")]
         public string ImagePath { get; set; }

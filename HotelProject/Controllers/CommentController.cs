@@ -25,12 +25,17 @@ namespace HotelProject.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult Add(Comment comment)
+        [ValidateAntiForgeryToken]
+        public IActionResult Add([Bind("Id,Feedback,Name,Surname,Phone,Email")] Comment comment)
         {
-            db.Comments.Add(comment);
-            db.SaveChanges();
+            if (ModelState.IsValid)
+            {
+                db.Comments.Add(comment);
+                db.SaveChanges();
 
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+            }
+            return View(comment);  
         }
         [HttpGet]
         public IActionResult Edit(int id)
@@ -39,11 +44,16 @@ namespace HotelProject.Controllers
             return View(comment);
         }
         [HttpPost]
-        public IActionResult Edit(Comment comment)
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit([Bind("Id,Feedback,Name,Surname,Phone,Email")] Comment comment)
         {
             db.Entry(comment).State = EntityState.Modified;
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(comment);
         }
         [HttpGet]
         public IActionResult Delete(int id)
@@ -53,6 +63,7 @@ namespace HotelProject.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
             Comment b = db.Comments.Find(id);

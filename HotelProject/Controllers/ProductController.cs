@@ -44,47 +44,75 @@ namespace HotelProject.Controllers
         [HttpGet]
         public IActionResult Product_Add()
         {
-            SelectList categor = new SelectList(db.Categories, "Id", "Title");
-            ViewBag.Categories = categor;
+            ProductWithPropertiesViewModel product = new ProductWithPropertiesViewModel();
 
             List<Propertie> propertieList = new List<Propertie>();
             propertieList = (from propertie in db.Properties select propertie).ToList();
-            ViewBag.Properties = propertieList;
 
+            var properties = new List<Propertie>();
+            foreach (var propertie in propertieList)
+            {
+                properties.Add(new Propertie()
+                {
+                    Id = propertie.Id,
+                    Title = propertie.Title,
+                    isChecked = false
+                });
+            }
+            product.PropertyList = properties;
+            
+            SelectList categor = new SelectList(db.Categories, "Id", "Title");
+            ViewBag.Categories = categor;
 
-            return View();
+            return View(product);
         }
+
         [HttpPost]
-        public async Task <IActionResult> Product_Add(Product product, IFormFile uploadedFile,List<Propertie> objPropertie )
+        [ValidateAntiForgeryToken]
+        public async Task <IActionResult> Product_Add([Bind("Id,Title,Description,ShortDescription,Price,CategoryId,PropertyList")]  ProductWithPropertiesViewModel product, IFormFile uploadedFile, List<Propertie> properties)
         {
-            if (uploadedFile != null)
+            if (ModelState.IsValid)
             {
-                string path = "/files/" + uploadedFile.FileName;
-                using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                if (uploadedFile != null)
                 {
-                    await uploadedFile.CopyToAsync(fileStream);
+                    string path = "/files/" + uploadedFile.FileName;
+                    using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                    {
+                        await uploadedFile.CopyToAsync(fileStream);
+                    }
+                    product.Image = path;
                 }
-                product.Image = path;
-            }
 
-            var countChecked = 0;
-            var countUnchecked = 0;
-            for (int i = 0; i < objPropertie.Count(); i++)
-            {
-                if (objPropertie[i].checkboxAnswer == true)
-                {
-                    countChecked = countChecked + 1;
-                }
-                else
-                {
-                    countUnchecked = countUnchecked + 1;
-                }
-            }
-          
-            db.Products.Add(product);
-            db.SaveChanges();
 
-            return RedirectToAction("Product_Index");
+                //foreach (var PropertieId in properties)
+                //{
+                //    var propertie = db.Properties.Find(PropertieId);
+                //    product.Properties.Add(propertie);
+                //}
+
+                //var selectedProperties = product.Properties.Where(x => x.isChecked).Select(x => x.Id).ToList();
+
+
+                //var countChecked = 0;
+                //var countUnchecked = 0;
+                //for (int i = 0; i < objPropertie.Count(); i++)
+                //{
+                //    if (objPropertie[i].isChecked == true)
+                //    {
+                //        countChecked = countChecked + 1;
+                //    }
+                //    else
+                //    {
+                //        countUnchecked = countUnchecked + 1;
+                //    }
+                //}
+
+                //db.Products.Add(product);
+                //db.SaveChanges();
+
+                return RedirectToAction("Product_Index");
+            }
+            return View(product);
         }
         public async Task<IActionResult> ListForCategories(int categoryId)
         {
@@ -108,20 +136,25 @@ namespace HotelProject.Controllers
 
         }
         [HttpPost]
-        public async Task<IActionResult> Product_Edit(Product product, IFormFile uploadedFile)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Product_Edit([Bind("Id,Title,Description,ShortDescription,Price,CategoryId")] Product product, IFormFile uploadedFile)
         {
             db.Entry(product).State = EntityState.Modified;
-            if (uploadedFile != null)
+            if (ModelState.IsValid)
             {
-                string path = "/files/" + uploadedFile.FileName;
-                using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                if (uploadedFile != null)
                 {
-                    await uploadedFile.CopyToAsync(fileStream);
+                    string path = "/files/" + uploadedFile.FileName;
+                    using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                    {
+                        await uploadedFile.CopyToAsync(fileStream);
+                    }
+                    product.Image = path;
                 }
-                product.Image = path;
+                db.SaveChanges();
+                return RedirectToAction("Product_Index");
             }
-            db.SaveChanges();
-            return RedirectToAction("Product_Index");
+            return View(product);
         }
 
         [HttpGet]
@@ -132,6 +165,7 @@ namespace HotelProject.Controllers
         }
 
         [HttpPost, ActionName("Product_Delete")]
+        [ValidateAntiForgeryToken]
         public IActionResult Product_DeleteConfirmed(int id)
         {
             Product b = db.Products.Find(id);

@@ -35,6 +35,7 @@ namespace HotelProject.Controllers
             return View();
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(IFormFile uploadedFile, int productId)
         {
             if (uploadedFile != null)
@@ -57,6 +58,7 @@ namespace HotelProject.Controllers
             return View(image);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Edit(Image image)
         {
             db.Entry(image).State = EntityState.Modified;
@@ -71,6 +73,7 @@ namespace HotelProject.Controllers
         }
 
         [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(int id)
         {
             Image b = db.Images.Find(id);
