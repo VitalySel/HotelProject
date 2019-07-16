@@ -13,11 +13,11 @@ namespace HotelProject.Models
         [Required(ErrorMessage = "Не указано название")]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "Недопустимая длина")]
         public string Title { get; set; }
-        [Display(Name = "Путь картинки")]
+        [Display(Name = "Картинка")]
         public string ImagePath { get; set; }
 
 
-
+        [Display(Name = "Продукт")]
         public int ProductId { get; set; }
         public Product Product { get; set; }
     }

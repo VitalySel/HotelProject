@@ -6,12 +6,19 @@
 }
 <h2>Продукты</h2>
 
+@if (TempData["SM"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SM"]
+    </div>
+}
 <p>
-    <a asp-action="Product_Add">Создать</a>
+    @Html.ActionLink("Создать новый продукт", "Product_Add","", htmlAttributes: new {@class = "btn btn-success"})
+    @*<a asp-action="Product_Add">Создать</a>*@
 </p>
 <form method="get">
     <div class="form-inline">
-        <label class="control-label">Categories: </label>
+        <label class="control-label">Категории:</label>
         @Html.DropDownList("categoryId", Model.Categories as SelectList,
                     htmlAttributes: new { @class = "form-control" })
         <input type="submit" value="Filter" class="btn btn-default" />
@@ -68,52 +75,9 @@
                 </td>
                 <td>
                     <a asp-action="Product_Edit" asp-route-id="@item.Id">Редактировать</a> |
-                    <a asp-action="Product_Delete" asp-route-id="@item.Id">Удалить</a> |
+                    <a asp-action="Product_Delete" asp-route-id="@item.Id">Удалить</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
-
-
-
-
-
-
-
-@*<!DOCTYPE html>
-
-    <html>
-    <head>
-        <title>Список товаров</title>
-    </head>
-    <body>
-        <h3>Список товаров</h3>
-        <table>
-            <tr>
-                <td>Название:</td>
-                <td>Описание:</td>
-                <td>Короткое описание:</td>
-                <td>Цена:</td>
-                <td>Картинка:</td>
-                <td>Категория:</td>
-            </tr>
-            @foreach (var product in Model)
-            {
-        <tr>
-            <td>@product.Title</td>
-            <td>@product.Description</td>
-            <td>@product.ShortDescription</td>
-            <td>@product.Price</td>
-            <td>@product.Image</td>
-            <td>@product.CategoryId</td>
-            <td><a href="~/Product/Product_Edit/@product.Id">Изменить</a></td>
-            <td><a href="~/Product/Product_Delete/@product.Id">Удалить</a></td>
-        </tr>
-            }
-        </table>
-        <a href="~/Product/Product_Add">Добавить</a>
-
-
-    </body>
-    </html>*@

@@ -1,18 +1,29 @@
 ﻿@model HotelProject.Models.Image
 @{
-    ViewData["Title"] = "Add";
+    ViewData["Title"] = "Add_Image";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Add</h2>
-<h3>Выберите файл для загрузки</h3>
+<h2>Добавление картинки</h2>
+
 <form asp-action="Add" asp-controller="Image" method="post" enctype="multipart/form-data">
-    <input type="file" name="uploadedFile" />
-    <br />
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="form-group">
+        <label asp-for="Title" class="control-label"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <input type="file" name="uploadedFile" />
+    </div>
+    <div class="form-group">
+        <br />
+        @Html.DropDownListFor(model => model.ProductId, ViewBag.Products as SelectList)
+        <br />
+    </div>
+    <div>
+        <input type="submit" value="Сохранить" />
+    </div>
 
-    @Html.DropDownListFor(model => model.ProductId, ViewBag.Products as SelectList);
-    <br />
-
-     <input type="submit" value="Загрузить" />
 </form>
 

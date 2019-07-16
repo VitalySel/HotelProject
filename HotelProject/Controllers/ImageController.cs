@@ -23,9 +23,25 @@ namespace HotelProject.Controllers
             _appEnvironment = appEnvironment;
             db = context;
         }
-        public IActionResult Index()
+        public IActionResult Index(int? productId)
         {
-            return View(db.Images.ToList());
+            var image = db.Images.Include(p => p.Product);
+
+            IQueryable<Image> images = db.Images.Include(p => p.Product);
+            if (productId != null && productId != 0)
+            {
+                images = images.Where(p => p.ProductId == productId);
+            }
+
+            List<Product> product = db.Products.ToList();
+            product.Insert(0, new Product { Title = "Все", Id = 0 });
+
+            ImageFilter plv = new ImageFilter
+            {
+                Images = images.ToList(),
+                Products = new SelectList(product, "Id", "Title"),
+            };
+            return View(plv);
         }
         [HttpGet]
         public IActionResult Add()
@@ -36,7 +52,7 @@ namespace HotelProject.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Add(IFormFile uploadedFile, int productId)
+        public async Task<IActionResult> Add(IFormFile uploadedFile, int productId,Image image)
         {
             if (uploadedFile != null)
             {
@@ -45,26 +61,66 @@ namespace HotelProject.Controllers
                 {
                     await uploadedFile.CopyToAsync(fileStream);
                 }
-                Image file = new Image { Title = uploadedFile.FileName, ImagePath = path, ProductId = productId };
+                Image file = new Image { Title = image.Title, ImagePath = path, ProductId = productId };
+
+                //уникальность заголовка
+                if (db.Images.Any(x => x.Title == file.Title))
+                {
+                    ModelState.AddModelError("", "Данный заголовок уже занят");
+                    return View(file);
+                }
                 db.Images.Add(file);
+                TempData["Add Image"] = "Вы добавили новую картинку";
                 db.SaveChanges();
             }
             return RedirectToAction("Index");   
         }
         [HttpGet]
-        public IActionResult Edit(int id)
+        public IActionResult Edit(int? id)
         {
             Image image = db.Images.Find(id);
+            if (image != null)
+            {
+                SelectList images = new SelectList(db.Products, "Id", "Title", image.ProductId);
+                ViewBag.Products = images;
+
+                return View(image);
+            }
+           
             return View(image);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(Image image)
+        public async Task <IActionResult> Edit(Image image, IFormFile uploadedFile, int productId)
         {
             db.Entry(image).State = EntityState.Modified;
-            db.SaveChanges();
-            return RedirectToAction("Index");
+
+            if (ModelState.IsValid)
+            {
+                if (uploadedFile != null)
+                {
+                    string path = "/files/" + uploadedFile.FileName;
+                    using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                    {
+                        await uploadedFile.CopyToAsync(fileStream);
+                    }
+                    //Image file = new Image { Title = image.Title, ImagePath = path, ProductId = productId };
+                    image.ImagePath = path;
+
+                    if (db.Images.Any(x => x.Title == image.Title))
+                    {
+                        ModelState.AddModelError("", "Данный заголовок уже занят");
+                        return View(image);
+                    }
+                }
+                db.SaveChanges();
+                TempData["Edit Image"] = "Вы изменили картинку";
+                return RedirectToAction("Index");
+            }
+            return View(image);
         }
+
+
         [HttpGet]
         public IActionResult Delete(int id)
         {
@@ -80,6 +136,7 @@ namespace HotelProject.Controllers
 
             db.Images.Remove(b);
             db.SaveChanges();
+            TempData["Delete Image"] = "Вы удалили картинку";
             return RedirectToAction("Index");
         }
     }

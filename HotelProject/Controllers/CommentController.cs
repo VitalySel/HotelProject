@@ -30,9 +30,22 @@ namespace HotelProject.Controllers
         {
             if (ModelState.IsValid)
             {
+                //уникальность телефона и почты
+                if (db.Comments.Any(x => x.Phone == comment.Phone))
+                {
+                    ModelState.AddModelError("", "Данный телефон уже был указат");
+                    return View(comment);
+                }
+                else if (db.Comments.Any(x => x.Email == comment.Email))
+                {
+                    ModelState.AddModelError("", "Данная почта уже была указана");
+                    return View(comment);
+                }
+
+
                 db.Comments.Add(comment);
                 db.SaveChanges();
-
+                TempData["Add Comment"] = "Вы добавили комментарий";
                 return RedirectToAction("Index");
             }
             return View(comment);  
@@ -50,7 +63,20 @@ namespace HotelProject.Controllers
             db.Entry(comment).State = EntityState.Modified;
             if (ModelState.IsValid)
             {
+                //уникальность телефона и почты
+                if (db.Comments.Any(x => x.Phone == comment.Phone))
+                {
+                    ModelState.AddModelError("", "Данный телефон уже был указат");
+                    return View(comment);
+                }
+                else if (db.Comments.Any(x => x.Email == comment.Email))
+                {
+                    ModelState.AddModelError("", "Данная почта уже была указана");
+                    return View(comment);
+                }
+
                 db.SaveChanges();
+                TempData["Edit Comment"] = "Вы изменили комментарий";
                 return RedirectToAction("Index");
             }
             return View(comment);
@@ -70,6 +96,7 @@ namespace HotelProject.Controllers
 
             db.Comments.Remove(b);
             db.SaveChanges();
+            TempData["Delete Comment"] = "Вы удалили комментарий";
             return RedirectToAction("Index");
         }
 

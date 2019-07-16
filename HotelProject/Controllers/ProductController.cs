@@ -32,7 +32,7 @@ namespace HotelProject.Controllers
                 products = products.Where(p => p.CategoryId == categoryId);
             }
             List<Category> category = db.Categories.ToList();
-            category.Insert(0, new Category { Title = "All", Id = 0 });
+            category.Insert(0, new Category { Title = "Все", Id = 0 });
 
             ProductFilter plv = new ProductFilter
             {
@@ -56,6 +56,7 @@ namespace HotelProject.Controllers
                 {
                     Id = propertie.Id,
                     Title = propertie.Title,
+                    Description = propertie.Description,
                     isChecked = false
                 });
             }
@@ -69,10 +70,20 @@ namespace HotelProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task <IActionResult> Product_Add([Bind("Id,Title,Description,ShortDescription,Price,CategoryId,PropertyList")]  ProductWithPropertiesViewModel product, IFormFile uploadedFile, List<Propertie> properties)
+        public async Task <IActionResult> Product_Add([Bind("Id,Title,Description,ShortDescription,Price,CategoryId,PropertyList")]  ProductWithPropertiesViewModel productViewModel, IFormFile uploadedFile)
         {
+            Product product = new Product
+            {
+                Id = productViewModel.Id,
+                Title = productViewModel.Title,
+                Description = productViewModel.Description,
+                ShortDescription = productViewModel.ShortDescription,
+                Price = productViewModel.Price,
+                CategoryId = productViewModel.CategoryId,
+            };
             if (ModelState.IsValid)
             {
+                
                 if (uploadedFile != null)
                 {
                     string path = "/files/" + uploadedFile.FileName;
@@ -83,6 +94,38 @@ namespace HotelProject.Controllers
                     product.Image = path;
                 }
 
+                db.Products.Add(product);
+                db.SaveChanges();
+
+                //HotelContext dbnew = context
+                int productId = db.Products.Last().Id;
+                List<Propertie> properties = productViewModel.PropertyList.Where(prop => prop.isChecked == true).ToList();
+                foreach (var item in properties)
+                {
+                    PropValue propValue = new PropValue
+                    {
+                        ProductId = productViewModel.Id,
+                        PropertieId = item.Id,
+                    };
+                    db.PropValues.Add(propValue);
+                }
+
+                //уникальность заголовка и описания
+                if (db.Products.Any(x => x.Title == product.Title))
+                {
+                    ModelState.AddModelError("", "Данный заголовок уже занят");
+                    return View(product);
+                }
+                else if (db.Products.Any(x => x.Description == product.Description))
+                {
+                    ModelState.AddModelError("", "Данное описание уже занято");
+                    return View(product);
+                }
+
+                db.SaveChanges();
+ 
+
+                TempData["SM"] = "Вы добавили новый продукт";
 
                 //foreach (var PropertieId in properties)
                 //{
@@ -107,8 +150,7 @@ namespace HotelProject.Controllers
                 //    }
                 //}
 
-                //db.Products.Add(product);
-                //db.SaveChanges();
+
 
                 return RedirectToAction("Product_Index");
             }

@@ -5,8 +5,28 @@
 }
 <h2>Категории</h2>
 
+@if (TempData["SM"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SM"]
+    </div>
+}
+@if (TempData["Edit Message"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Edit Message"]
+    </div>
+}
+@if (TempData["Delete Message"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Delete Message"]
+    </div>
+}
+
 <p>
-    <a asp-action="Admin_Add">Создать</a>
+    @Html.ActionLink("Создать новую категорию", "Admin_Add", "", htmlAttributes: new { @class = "btn btn-success" })
+    @*<a asp-action="Admin_Add">Создать</a>*@
 </p>
 <table class="table">
     <thead>
@@ -25,22 +45,22 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                <p><img src="@Url.Content(item.Image)"></p>
-            </td>
-            <td>
-                <a asp-action="Admin_Edit" asp-route-id="@item.Id">Редактировать</a> |
-                <a asp-action="Admin_Delete" asp-route-id="@item.Id">Удалить</a> |
-                <a asp-area="" asp-controller="Product" asp-action="ListForCategories" asp-route-categoryId="@item.Id">Продукты</a>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    <p><img src="@Url.Content(item.Image)"></p>
+                </td>
+                <td>
+                    <a asp-action="Admin_Edit" asp-route-id="@item.Id">Редактировать</a> |
+                    <a asp-action="Admin_Delete" asp-route-id="@item.Id">Удалить</a> |
+                    <a asp-area="" asp-controller="Product" asp-action="ListForCategories" asp-route-categoryId="@item.Id">Продукты</a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>

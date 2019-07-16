@@ -10,7 +10,7 @@
         <link rel="stylesheet" href="~/css/site.css" />
     </environment>
     <environment exclude="Development">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+        <link rel="stylesheet" href="~/wwwroot/css/bootstrap.min.css" type="text/css"/>
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
@@ -32,7 +32,7 @@
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Category" asp-action="Admin_Index">Categories</a></li>
                     <li><a asp-area="" asp-controller="Product" asp-action="Product_Index">Products</a></li>
-                    <li><a asp-area="" asp-controller="Client" asp-action="Index">Clients</a></li>
+                    <li><a asp-area="" asp-controller="Client" asp-action="Client_Index">Clients</a></li>
                     <li><a asp-area="" asp-controller="Comment" asp-action="Index">Comments</a></li>
                     <li><a asp-area="" asp-controller="Image" asp-action="Index">Images</a></li>
                     <li><a asp-area="" asp-controller="Option" asp-action="Option_Index">Options</a></li>

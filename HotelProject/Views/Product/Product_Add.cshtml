@@ -40,6 +40,7 @@
                     <input type="checkbox" asp-for="@Model.PropertyList[i].isChecked" /> @Model.PropertyList[i].Title
                     <input type="hidden" asp-for="@Model.PropertyList[i].Id" />
                     <input type="hidden" asp-for="@Model.PropertyList[i].Title" />
+                    <input type="hidden" asp-for="@Model.PropertyList[i].Description" />
                     <br />
                 }
             </div>

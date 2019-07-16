@@ -1,6 +1,6 @@
 ﻿@model HotelProject.Models.Client
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Client_Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <h2>Редактирование</h2>
@@ -8,7 +8,7 @@
 <h4>Клиенты</h4>
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Client/Edit" method="post" asp-controller="Client" enctype="multipart/form-data">
+        <form asp-action="Client_Edit" method="post" asp-controller="Client" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" value="@ViewBag.ClientId" name="ClientId" />
             <div class="form-group">
@@ -34,54 +34,5 @@
 </div>
 
 <div>
-    <a asp-action="Index">Вернуться назад</a>
+    <a asp-action="Client_Index">Вернуться назад</a>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Редактирование клиента</title>
-</head>
-<body>
-    <div>
-        <h3>Редактор клиентв</h3>
-        <form method="post">
-            <input type="hidden" value="@ViewBag.ClientId" name="ClientId" />
-            <fieldset>
-                @Html.HiddenFor(m => m.Id)
-                <p>
-                    @Html.LabelFor(m => m.Name, "Имя")
-                    <br />
-                    @Html.EditorFor(m => m.Name)
-                </p>
-                <p>
-                    @Html.LabelFor(m => m.Email, "Почта")
-                    <br />
-                    @Html.EditorFor(m => m.Email)
-                </p>
-                <p>
-                    @Html.LabelFor(m => m.Phone, "Телефон")
-                    <br />
-                    @Html.EditorFor(m => m.Phone)
-                </p>
-                <p><input type="submit" value="Отправить" /></p>
-            </fieldset>
-        </form>
-    </div>
-</body>
-</html>

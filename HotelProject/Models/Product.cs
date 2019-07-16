@@ -30,6 +30,8 @@ namespace HotelProject.Models
         public int CategoryId { get; set; }
         public Category Category { get; set; }
 
+        public ICollection<Image> Images { get; set; }
+
         //[NotMapped]
         //public IEnumerable<Propertie> Properties { get; set; }
 

@@ -1,0 +1,68 @@
+﻿@model IEnumerable<HotelProject.Models.Client>
+@{
+    ViewData["Title"] = "Client_Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Клиенты</h2>
+
+@if (TempData["Add Client"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Add Client"]
+    </div>
+}
+@if (TempData["Edit Client"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Edit Client"]
+    </div>
+}
+@if (TempData["Delete Client"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Delete Client"]
+    </div>
+}
+
+<p>
+    @Html.ActionLink("Добавить нового клиента", "Add_Client", "", htmlAttributes: new { @class = "btn btn-success" })
+    @*<a asp-action="Add">Создать</a>*@
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    <a asp-action="Client_Edit" asp-route-id="@item.Id">Редактировать</a> |
+                    <a asp-action="Client_Delete" asp-route-id="@item.Id">Удалить</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+

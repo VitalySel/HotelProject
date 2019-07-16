@@ -1,19 +1,80 @@
-﻿@model IEnumerable<HotelProject.Models.Image>
+﻿@model HotelProject.Models.ImageFilter
 @{
-    ViewData["Title"] = "Добавление файла";
+    ViewData["Title"] = "Add Image";
 }
-@*<h3>Выберите файл для загрузки</h3>
-    <form asp-action="Add" asp-controller="Image" method="post" enctype="multipart/form-data">
-        <input type="file" name="uploadedFile" /><br>
-        <input type="submit" value="Загрузить" />
-    </form>*@
 
-<h3>Все файлы</h3>
-<a href="~/Image/Add">Добавить картинку</a>
-@foreach (var f in Model)
+<h3>Все картинки</h3>
+
+@if (TempData["Add Image"] != null)
 {
-    <p><img src="@Url.Content(f.ImagePath)"></p>
+    <div class="alert alert-success">
+        @TempData["Add Image"]
+    </div>
+}
+@if (TempData["Edit Image"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Edit Image"]
+    </div>
+}
+@if (TempData["Delete Image"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Delete Image"]
+    </div>
 }
 
-@*<br /><br />
-    @Html.DropDownListFor(model => model.Products, ViewBag.Products as SelectList)*@
+
+<p>
+    @Html.ActionLink("Добавить новую картинку", "Add", "", htmlAttributes: new { @class = "btn btn-success" })
+</p>
+
+<form method="get">
+    <div class="form-inline">
+        <label class="control-label">Продукты:</label>
+        @Html.DropDownList("ProductId", Model.Products as SelectList,
+                    htmlAttributes: new { @class = "form-control" })
+        <input type="submit" value="Filter" class="btn btn-default" />
+    </div>
+</form>
+
+
+<table class="table">
+    <thead>
+        @foreach (var item in Model.Images)
+        {
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(modelitem => item.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(modelitem => item.ImagePath)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(modelitem => item.ProductId)
+                </th>
+            </tr>
+            break;
+        }
+        </thead>
+    <tbody>
+        @foreach (var item in Model.Images)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    <p><img src="@Url.Content(item.ImagePath)"></p>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Product.Title)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

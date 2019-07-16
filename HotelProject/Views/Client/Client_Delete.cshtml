@@ -1,6 +1,6 @@
 ﻿@model HotelProject.Models.Client
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Client_Delete";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -21,10 +21,10 @@
             @Html.DisplayFor(model => model.Phone)
         </dd>
     </dl>
-    <form asp-action="Delete">
+    <form asp-action="Client_Delete">
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="Удалить" class="btn btn-default" /> |
-        <a asp-action="Index">Вернуться назад</a>
+        <a asp-action="Client_Index">Вернуться назад</a>
     </form>
 </div>
 

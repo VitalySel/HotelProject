@@ -45,8 +45,22 @@ namespace HotelProject.Controllers
                     }
                     category.Image = path;
                 }
+
+                //уникальность заголовка и описания
+                if (db.Categories.Any(x=>x.Title ==category.Title))
+                {
+                    ModelState.AddModelError("", "Данный заголовок уже занят");
+                    return View(category);
+                }
+                else if(db.Categories.Any(x => x.Description == category.Description))
+                {
+                    ModelState.AddModelError("", "Данное описание уже занято");
+                    return View(category);
+                }
+
                 db.Categories.Add(category);
                 db.SaveChanges();
+                TempData["SM"] = "Вы добавили новую категорию";
                 return RedirectToAction("Admin_Index");
             }
             return View(category);
@@ -58,6 +72,7 @@ namespace HotelProject.Controllers
             Category category = db.Categories.Find(id);
             return View(category);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Admin_Edit([Bind("Id,Title,Description,Image")] Category category, IFormFile uploadedFile)
@@ -74,7 +89,21 @@ namespace HotelProject.Controllers
                     }
                     category.Image = path;
                 }
+                //уникальность заголовка и описания
+                if (db.Categories.Any(x => x.Title == category.Title))
+                {
+                    ModelState.AddModelError("", "Данный заголовок уже занят");
+                    return View(category);
+                }
+                else if (db.Categories.Any(x => x.Description == category.Description))
+                {
+                    ModelState.AddModelError("", "Данное описание уже занято");
+                    return View(category);
+                }
+
                 db.SaveChanges();
+
+                TempData["Edit Message"] = "Вы изменили категорию";
                 return RedirectToAction("Admin_Index");
             }
             return View(category);
@@ -94,6 +123,7 @@ namespace HotelProject.Controllers
 
             db.Categories.Remove(b);
             db.SaveChanges();
+            TempData["SM"] = "Вы удалили категорию";
             return RedirectToAction("Admin_Index");
         }
     }
