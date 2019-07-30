@@ -1,22 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using System.ComponentModel.DataAnnotations;
 
 namespace HotelProject.Models
 {
-    public class User
+    public class LoginModel
     {
-        public int Id { get; set; }
-        [Display(Name = "Логин")]
+        [Required(ErrorMessage = "Не указан Email")]
         public string Email { get; set; }
-        [Display(Name = "Пароль")]
+
+        [Required(ErrorMessage = "Не указан пароль")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
-
-        [Display(Name = "Роль")]
-        public string RoleId { get; set; }
-
     }
 }
