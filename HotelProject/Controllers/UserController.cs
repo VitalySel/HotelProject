@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using HotelProject.Models;
 using Microsoft.EntityFrameworkCore;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace HotelProject.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class UserController : Controller
     {
         HotelContext db;
@@ -27,13 +28,21 @@ namespace HotelProject.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Add([Bind("Id,Login,Password")] User user)
+        public IActionResult Add([Bind("Id,Email,Password")] User user)
         {
             if (ModelState.IsValid)
             {
+                //уникальность логина
+                if (db.Users.Any(x => x.Email == user.Email))
+                {
+                    ModelState.AddModelError("", "Данный логин уже занят");
+                    return View(user);
+                }
+
                 db.Users.Add(user);
                 db.SaveChanges();
 
+                TempData["User Add"] = "Вы добавили пользователя";
                 return RedirectToAction("Index");
             }
             return View(user);
@@ -47,12 +56,22 @@ namespace HotelProject.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit([Bind("Id,Login,Password")] User user)
+        public IActionResult Edit([Bind("Id,Email,Password")] User user)
         {
             db.Entry(user).State = EntityState.Modified;
             if (ModelState.IsValid)
             {
+
+
+                //уникальность логина
+                if (db.Users.Any(x => x.Email == user.Email))
+                {
+                    ModelState.AddModelError("", "Данный логин уже занят");
+                    return View(user);
+                }
+
                 db.SaveChanges();
+                TempData["User Edit"] = "Вы изменили пользователя";
                 return RedirectToAction("Index");
             }
             return View(user);
@@ -72,6 +91,7 @@ namespace HotelProject.Controllers
 
             db.Users.Remove(b);
             db.SaveChanges();
+            TempData["User Delete"] = "Вы удалили пользователя";
             return RedirectToAction("Index");
         }
 

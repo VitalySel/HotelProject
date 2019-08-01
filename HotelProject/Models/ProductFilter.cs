@@ -9,7 +9,7 @@ namespace HotelProject.Models
     public class ProductFilter
     {
         public IEnumerable<Product> Products { get; set; }
+        public IEnumerable<Product> Prod { get; set; }
         public SelectList Categories { get; set; }
-
     }
 }

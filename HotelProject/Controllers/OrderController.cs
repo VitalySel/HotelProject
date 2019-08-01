@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HotelProject.Models;
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace HotelProject.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class OrderController : Controller
     {
         HotelContext db;
@@ -32,6 +33,7 @@ namespace HotelProject.Controllers
             if (ModelState.IsValid)
             {
                 db.Orders.Add(order);
+                TempData["Order Add"] = "Вы добавили новый заказ";
                 db.SaveChanges();
 
                 return RedirectToAction("Index");
@@ -52,6 +54,7 @@ namespace HotelProject.Controllers
             if (ModelState.IsValid)
             {
                 db.SaveChanges();
+                TempData["Order Edit"] = "Вы изменили заказ";
                 return RedirectToAction("Index");
             }
             return View(order);
@@ -72,6 +75,7 @@ namespace HotelProject.Controllers
 
             db.Orders.Remove(b);
             db.SaveChanges();
+            TempData["Order Delete"] = "Вы удалили заказ";
             return RedirectToAction("Index");
         }
     }

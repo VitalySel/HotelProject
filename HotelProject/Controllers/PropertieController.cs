@@ -9,9 +9,11 @@ using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HotelProject.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class PropertieController : Controller
     {
         HotelContext db;
@@ -45,8 +47,11 @@ namespace HotelProject.Controllers
                     }
                     propertie.Image = path;
                 }
+
                 db.Properties.Add(propertie);
                 db.SaveChanges();
+
+                TempData["Propertie Add"] = "Вы добавили новое свойство";
 
                 return RedirectToAction("Propertie_Index");
             }
@@ -60,12 +65,23 @@ namespace HotelProject.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Propertie_Edit([Bind("Id,Title,Description")] Propertie propertie)
+        public async Task<IActionResult> Propertie_Edit([Bind("Id,Title,Description")] Propertie propertie, IFormFile uploadedFile)
         {
             db.Entry(propertie).State = EntityState.Modified;
             if (ModelState.IsValid)
             {
+                if (uploadedFile != null)
+                {
+                    string path = "/files/" + uploadedFile.FileName;
+                    using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                    {
+                        await uploadedFile.CopyToAsync(fileStream);
+                    }
+                    propertie.Image = path;
+                }
+
                 db.SaveChanges();
+                TempData["Propertie Edit"] = "Вы изменили свойство";
                 return RedirectToAction("Propertie_Index");
             }
             return View(propertie);
@@ -85,6 +101,7 @@ namespace HotelProject.Controllers
 
             db.Properties.Remove(b);
             db.SaveChanges();
+            TempData["Propertie Delete"] = "Вы удалили свойство";
             return RedirectToAction("Propertie_Index");
         }
     }

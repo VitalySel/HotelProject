@@ -8,7 +8,6 @@ namespace HotelProject.Models
 {
     public class Category
     {
-        
         public int Id { get; set; }
         [Display(Name = "Название")]
         [Required(ErrorMessage = "Не указано название")]
@@ -18,7 +17,7 @@ namespace HotelProject.Models
         [Required(ErrorMessage = "Не указано описание")]
         [StringLength(100, MinimumLength = 3, ErrorMessage = "Недопустимая длина")]
         public string Description { get; set; }
-        [Display(Name = "Картинка")]
+        [Display(Name = "Изображение")]
         public string Image { get; set; }
 
         public ICollection<Product> Products { get; set; }

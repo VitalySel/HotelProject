@@ -12,44 +12,60 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" value="@ViewBag.ProductId" name="ProductId" />
             <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
+                <label asp-for="Title" class="control-label">Название</label>
                 <input asp-for="Title" class="form-control" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
+                <label asp-for="Description" class="control-label">Описание</label>
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ShortDescription" class="control-label"></label>
+                <label asp-for="ShortDescription" class="control-label">Краткое описание</label>
                 <input asp-for="ShortDescription" class="form-control" />
                 <span asp-validation-for="ShortDescription" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="file" name="uploadedFile" />
+                <label class="control-label">Изображение</label>
+                <input type="file" name="uploadedFile" id="UploadFile" />
+                <img id="imgpreview" src="@Url.Content(Model.Image)"/>
             </div>
             <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
+                <label asp-for="Price" class="control-label">Цена</label>
                 <input asp-for="Price" class="form-control" />
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label class="control-label">Category</label><br />
+                <label class="control-label">Категория</label><br />
                 @Html.DropDownListFor(model => model.CategoryId, ViewBag.Categories as SelectList)
             </div>
+            <div class="checkbox">
+                @for (int i = 0; i < Model.PropertyList.Count; i++)
+                {
+
+                    <input type="checkbox" asp-for="@Model.PropertyList[i].isChecked" /> @Model.PropertyList[i].Title
+                    <input type="hidden" asp-for="@Model.PropertyList[i].Id" />
+                    <input type="hidden" asp-for="@Model.PropertyList[i].Title" />
+                    <input type="hidden" asp-for="@Model.PropertyList[i].Description" />
+                    <br />
+                }
+            </div>
             <div class="form-group">
-                <input type="submit" value="Сохранить" class="btn btn-default" />
+                <input type="submit" value="Сохранить" class="btn btn-success" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Product_Index">Вернуться назад</a>
-    <a asp-action="Index">Вернуться на главную</a>
+    @Html.ActionLink("Продукты", "Product_Index")
 </div>
 
+@section Scripts
+{ 
+    <script src="~/js/ProductScript.js"></script>
+}
 
 
 

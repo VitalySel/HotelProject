@@ -23,7 +23,7 @@ namespace HotelProject.Models
         [Display(Name = "Цена")]
         [Required(ErrorMessage = "Не указана цена")]
         public int Price { get; set; }
-        [Display(Name = "Картинка")]
+        [Display(Name = "Изображение")]
         public string Image { get; set; }
 
         [Display(Name = "Категория")]
@@ -32,13 +32,7 @@ namespace HotelProject.Models
 
         public ICollection<Image> Images { get; set; }
 
-        //[NotMapped]
-        //public IEnumerable<Propertie> Properties { get; set; }
 
-        //public Product()
-        //{
-        //    Properties = new List<Propertie>();
-        //}
     }
     
 }

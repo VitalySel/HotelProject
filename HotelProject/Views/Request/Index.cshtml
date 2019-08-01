@@ -3,10 +3,9 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>Request</h2>
 
 <p>
-    <a asp-action="Add">Создать</a>
+    @Html.ActionLink("Создать", "Add", "", htmlAttributes: new { @class = "btn btn-success" })
 </p>
 <table class="table">
     <tbody>

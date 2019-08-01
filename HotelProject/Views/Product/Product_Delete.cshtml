@@ -7,75 +7,33 @@
 <div>
     <h4>Продукт</h4>
     <dl class="dl-horizontal">
-        <dt>Название</dt>
+        <dt>Название: </dt>
         <dd>
             @Html.DisplayFor(model => model.Title)
         </dd>
-        <dt>Описание</dt>
+        <dt>Описание: </dt>
         <dd>
             @Html.DisplayFor(model => model.Description)
         </dd>
-        <dt>Краткое описание</dt>
+        <dt>Краткое описание: </dt>
         <dd>
             @Html.DisplayFor(model => model.ShortDescription)
         </dd>
-        <dt>Картинка</dt>
+        <dt>Картинка: </dt>
         <dd>
-            @Html.DisplayFor(model => model.Image)
+            <img src="@Url.Content(Model.Image)" />
         </dd>
-        <dt>Цена</dt>
+        <dt>Цена: </dt>
         <dd>
             @Html.DisplayFor(model => model.Price)
         </dd>
     </dl>
     <form asp-action="Product_Delete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Удалить" class="btn btn-default" /> |
-        <a asp-action="Product_Index">Вернуться назад</a>
-        <a asp-action="Index">Вернуться на главную</a>
+        <input type="submit" value="Удалить" class="btn btn-danger" />
     </form>
 </div>
 
-
-
-
-
-
-@*<!DOCTYPE html>
-<html>
-<head>
-    <title>Удаление товара</title>
-</head>
-<body>
-    <dl>
-        <dt>Название товара</dt>
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt>Описание</dt>
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt>Краткое Описание</dt>
-        <dd>
-            @Html.DisplayFor(model => model.ShortDescription)
-        </dd>
-        <dt>Цена</dt>
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt>Картинка</dt>
-        <dd>
-            @Html.DisplayFor(model => model.Image)
-        </dd>
-        <dt>Категория</dt>
-        <dd>
-            @Html.DisplayFor(model => model.CategoryId)
-        </dd>
-    </dl>
-    @using (Html.BeginForm())
-    {
-        <input type="submit" value="Удалить" />
-    }
-</body>
-</html>*@
+<div>
+    @Html.ActionLink("Продукты", "Product_Index")
+</div>

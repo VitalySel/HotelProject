@@ -8,81 +8,37 @@
 <div>
     <h4>Комментарий</h4>
     <dl class="dl-horizontal">
-        <dt>Комментарий</dt>
+        <dt>Комментарий: </dt>
         <dd>
             @Html.DisplayFor(model => model.Feedback)
         </dd>
-        <dt>Имя</dt>
+        <dt>Имя: </dt>
         <dd>
             @Html.DisplayFor(model => model.Name)
         </dd>
-        <dt>Фамилия</dt>
+        <dt>Фамилия: </dt>
         <dd>
             @Html.DisplayFor(model => model.Surname)
         </dd>
-        <dt>Телефон</dt>
+        <dt>Телефон: </dt>
         <dd>
             @Html.DisplayFor(model => model.Phone)
         </dd>
-        <dt>Почта</dt>
+        <dt>Почта: </dt>
         <dd>
             @Html.DisplayFor(model => model.Email)
         </dd>
-        <dt>Рейтинг</dt>
+        <dt>Рейтинг: </dt>
         <dd>
             @Html.DisplayFor(model => model.Rating)
         </dd>
     </dl>
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Удалить" class="btn btn-default" /> |
-        <a asp-action="Index">Вернуться на главную</a>
+        <input type="submit" value="Удалить" class="btn btn-danger" /> |
     </form>
 </div>
 
-
-
-
-
-
-
-
-
-@*<!DOCTYPE html>
-    <html>
-    <head>
-        <title>Удаление комментария</title>
-    </head>
-    <body>
-        <dl>
-            <dt>Комментарий</dt>
-            <dd>
-                @Html.DisplayFor(model => model.Feedback)
-            </dd>
-            <dt>Имя</dt>
-            <dd>
-                @Html.DisplayFor(model => model.Name)
-            </dd>
-            <dt>Фамилия</dt>
-            <dd>
-                @Html.DisplayFor(model => model.Surname)
-            </dd>
-            <dt>Телефон</dt>
-            <dd>
-                @Html.DisplayFor(model => model.Phone)
-            </dd>
-            <dt>Почта</dt>
-            <dd>
-                @Html.DisplayFor(model => model.Email)
-            </dd>
-            <dt>Оценка</dt>
-            <dd>
-                @Html.DisplayFor(model => model.Rating)
-            </dd>
-        </dl>
-        @using (Html.BeginForm())
-        {
-            <input type="submit" value="Удалить" />
-        }
-    </body>
-    </html>*@
+<div>
+    @Html.ActionLink("Заказы", "Index")
+</div>

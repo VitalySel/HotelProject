@@ -1,20 +1,34 @@
-﻿
-@model HotelProject.Models.ProductFilter
+﻿@model HotelProject.Models.ProductFilter
 @{
     ViewData["Title"] = "Product_Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+ 
 <h2>Продукты</h2>
 
-@if (TempData["SM"] != null)
+@if (TempData["Product Add"] != null)
 {
     <div class="alert alert-success">
-        @TempData["SM"]
+        @TempData["Product Add"]
     </div>
 }
+@if (TempData["Product Edit"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Product Edit"]
+    </div>
+}
+@if (TempData["Product Delete"] != null)
+{
+<div class="alert alert-success">
+    @TempData["Product Delete"]
+</div>
+}
+
 <p>
-    @Html.ActionLink("Создать новый продукт", "Product_Add","", htmlAttributes: new {@class = "btn btn-success"})
-    @*<a asp-action="Product_Add">Создать</a>*@
+    @Html.ActionLink("Создать новый продукт", "Product_Add", "", htmlAttributes: new { @class = "btn btn-success" })
+
 </p>
 <form method="get">
     <div class="form-inline">
@@ -28,26 +42,26 @@
     <thead>
         @foreach (var item in Model.Products)
         {
-        <tr>
-            <th>
-                @Html.DisplayNameFor(modellItem => item.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(modellItem => item.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(modellItem => item.ShortDescription)
-            </th>
-            <th>
-                @Html.DisplayNameFor(modellItem => item.Image)
-            </th>
-            <th>
-                @Html.DisplayNameFor(modellItem => item.Price)
-            </th>
-            <th>
-                @Html.DisplayNameFor(modellItem => item.CategoryId)
-            </th>
-        </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(modellItem => item.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(modellItem => item.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(modellItem => item.ShortDescription)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(modellItem => item.Image)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(modellItem => item.Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(modellItem => item.CategoryId)
+                </th>
+            </tr>
             break;
         }
     </thead>
@@ -75,9 +89,12 @@
                 </td>
                 <td>
                     <a asp-action="Product_Edit" asp-route-id="@item.Id">Редактировать</a> |
-                    <a asp-action="Product_Delete" asp-route-id="@item.Id">Удалить</a>
+                    <a asp-action="Product_Delete" asp-route-id="@item.Id">Удалить</a> |
+                    <a asp-area="" asp-controller="Image" asp-action="ListForProducts" asp-route-productId="@item.Id">Картинки</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+ 
+

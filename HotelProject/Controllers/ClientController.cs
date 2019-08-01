@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using HotelProject.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HotelProject.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class ClientController : Controller
     {
         HotelContext db;

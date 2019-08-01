@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HotelProject.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HotelProject.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class OptionController : Controller
     {
         HotelContext db;
@@ -30,7 +32,22 @@ namespace HotelProject.Controllers
         {
             if (ModelState.IsValid)
             {
+                //уникальность заголовка и описания
+                if (db.Options.Any(x => x.Title == option.Title))
+                {
+                    ModelState.AddModelError("", "Данный заголовок уже занят");
+                    return View(option);
+                }
+                else if (db.Options.Any(x => x.Description == option.Description))
+                {
+                    ModelState.AddModelError("", "Данное описание уже занято");
+                    return View(option);
+                }
+
+
                 db.Options.Add(option);
+
+                TempData["Option Add"] = "Вы добавили новую опцию";
                 db.SaveChanges();
                 return RedirectToAction("Option_Index");
             }
@@ -49,7 +66,20 @@ namespace HotelProject.Controllers
             db.Entry(option).State = EntityState.Modified;
             if (ModelState.IsValid)
             {
+                //уникальность заголовка и описания
+                if (db.Options.Any(x => x.Title == option.Title))
+                {
+                    ModelState.AddModelError("", "Данный заголовок уже занят");
+                    return View(option);
+                }
+                else if (db.Options.Any(x => x.Description == option.Description))
+                {
+                    ModelState.AddModelError("", "Данное описание уже занято");
+                    return View(option);
+                }
+
                 db.SaveChanges();
+                TempData["Option Edit"] = "Вы изменили опцию";
                 return RedirectToAction("Option_Index");
             }
             return View(option);
@@ -70,6 +100,7 @@ namespace HotelProject.Controllers
 
             db.Options.Remove(b);
             db.SaveChanges();
+            TempData["Option Delete"] = "Вы удалили опцию";
             return RedirectToAction("Option_Index");
         }
 

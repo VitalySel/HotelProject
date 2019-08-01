@@ -5,14 +5,34 @@
 }
 <h2>Пользователи</h2>
 
+
+@if (TempData["User Add"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["User Add"]
+    </div>
+}
+@if (TempData["User Edit"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["User Edit"]
+    </div>
+}
+@if (TempData["User Delete"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["User Delete"]
+    </div>
+}
+
 <p>
-    <a asp-action="Add">Создать</a>
+    @Html.ActionLink("Создать нового пользователя", "Add", "", htmlAttributes: new { @class = "btn btn-success" })
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Login)
+                @Html.DisplayNameFor(model => model.Email)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Password)
@@ -27,17 +47,17 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Login)
+                    @Html.DisplayFor(modelItem => item.Email)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Password)
+                    @Html.Raw("\u2022\u2022\u2022\u2022\u2022")
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.RoleId)
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
                 </td>
             </tr>
         }

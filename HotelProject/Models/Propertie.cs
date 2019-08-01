@@ -19,7 +19,7 @@ namespace HotelProject.Models
         [Required(ErrorMessage = "Не указано описание")]
         [StringLength(150, MinimumLength = 3, ErrorMessage = "Недопустимая длина")]
         public string Description { get; set; }
-        [Display(Name = "Картинка")]
+        [Display(Name = "Изображение")]
         public string Image { get; set; }
 
         [NotMapped]

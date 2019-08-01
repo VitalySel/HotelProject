@@ -3,44 +3,43 @@
     ViewData["Title"] = "Propertie_Add";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-    <h2>Добавить</h2>
+<h2>Добавить</h2>
 
-    <h4>Свойство</h4>
-    <div class="row">
-        <div class="col-md-4">
-            <form asp-action="Propertie_Add" asp-controller="Propertie" method="post" enctype="multipart/form-data">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="Title" class="control-label"></label>
-                    <input asp-for="Title" class="form-control" />
-                    <span asp-validation-for="Title" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Description" class="control-label"></label>
-                    <input asp-for="Description" class="form-control" />
-                    <span asp-validation-for="Description" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <input type="file" name="uploadedFile" />
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Создать" class="btn btn-default" />
-                </div>
-            </form>
-        </div>
+<h4>Свойство</h4>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Propertie_Add" asp-controller="Propertie" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label">Название</label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label">Описание</label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Изображение</label>
+                <input type="file" name="uploadedFile" id="UploadFile" />
+                <img id="imgpreview" src="~/files/no_image.png" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Создать" class="btn btn-success" />
+            </div>
+        </form>
     </div>
+</div>
 
-    <div>
-        <a asp-action="Index">Вернуться на главную</a>
-    </div>
+<div>
+    @Html.ActionLink("Cвойства", "Propertie_Index")
+</div>
 
-
-
-
-
-
-
-
+@section Scripts
+{
+    <script src="~/js/ProductScript.js"></script>
+}
 
 
 
@@ -50,30 +49,37 @@
 
 
 
-    @*<!DOCTYPE html>
-         <html>
-            <head>
-                <title>Добавление свойств</title>
-            </head>
-            <body>
-                <div>
-                    <h3>Добавление свойств</h3>
-                    @using (Html.BeginForm())
-                    {
-                        @Html.LabelFor(model => model.Title, "Название опции")
-                        <br />
-                        @Html.EditorFor(model => model.Title)
-                        <br /><br />
-                        @Html.LabelFor(model => model.Description, "Описание")
-                        <br />
-                        @Html.EditorFor(model => model.Description)
-                        <br /><br />
-                        @Html.LabelFor(model => model.Image, "Картинка")
-                        <br />
-                        @Html.EditorFor(model => model.Image)
-                        <br /><br />
-                        <input type="submit" value="Добавить" />
-                    }
-                </div>
-            </body>
-        </html>*@
+
+
+
+
+
+
+
+@*<!DOCTYPE html>
+     <html>
+        <head>
+            <title>Добавление свойств</title>
+        </head>
+        <body>
+            <div>
+                <h3>Добавление свойств</h3>
+                @using (Html.BeginForm())
+                {
+                    @Html.LabelFor(model => model.Title, "Название опции")
+                    <br />
+                    @Html.EditorFor(model => model.Title)
+                    <br /><br />
+                    @Html.LabelFor(model => model.Description, "Описание")
+                    <br />
+                    @Html.EditorFor(model => model.Description)
+                    <br /><br />
+                    @Html.LabelFor(model => model.Image, "Картинка")
+                    <br />
+                    @Html.EditorFor(model => model.Image)
+                    <br /><br />
+                    <input type="submit" value="Добавить" />
+                }
+            </div>
+        </body>
+    </html>*@

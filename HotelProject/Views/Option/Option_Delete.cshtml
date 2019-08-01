@@ -7,22 +7,25 @@
 <div>
     <h4>Опции</h4>
     <dl class="dl-horizontal">
-        <dt>Название</dt>
+        <dt>Название: </dt>
         <dd>
             @Html.DisplayFor(model => model.Title)
         </dd>
-        <dt>Описание</dt>
+        <dt>Описание: </dt>
         <dd>
             @Html.DisplayFor(model => model.Description)
         </dd>
-        <dt>Цена</dt>
+        <dt>Цена: </dt>
         <dd>
             @Html.DisplayFor(model => model.Price)
         </dd>
     </dl>
-    <form asp-action="Delete">
+    <form asp-action="Option_Delete">
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="Удалить" class="btn btn-default" /> |
-        <a asp-action="Index">Вернуться назад</a>
     </form>
+</div>
+
+<div>
+    @Html.ActionLink("Опции", "Option_Index")
 </div>

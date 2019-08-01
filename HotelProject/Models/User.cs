@@ -9,10 +9,10 @@ namespace HotelProject.Models
     public class User
     {
         public int Id { get; set; }
-        [Display(Name = "Логин")]
-        [Required(ErrorMessage = "Не указан логин")]
+        [Display(Name = "Почта")]
+        [Required(ErrorMessage = "Не указана почта")]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "Недопустимая длина")]
-        public string Login { get; set; }
+        public string Email { get; set; }
         [Display(Name = "Пароль")]
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "Не указан пароль")]
@@ -21,5 +21,12 @@ namespace HotelProject.Models
 
         [Display(Name = "Роль")]
         public int RoleId { get; set; }
+        public Role Role { get; set; }
+    }
+
+    public class Role
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }

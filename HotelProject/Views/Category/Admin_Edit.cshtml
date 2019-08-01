@@ -10,72 +10,34 @@
     <div class="col-md-4">
         <form asp-action="Admin_Edit" method="post" asp-controller="Category" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" value="@ViewBag.CategoryId" name="CategoryId"/>
+            <input type="hidden" asp-for="Id" value="@ViewBag.CategoryId" name="CategoryId" />
             <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
+                <label asp-for="Title" class="control-label">Название</label>
                 <input asp-for="Title" class="form-control" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
+                <label asp-for="Description" class="control-label">Описание</label>
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="file" name="uploadedFile" />
+                <label class="control-label">Изображение</label>
+                <input type="file" name="uploadedFile" id="UploadFile" />
+                <img id="imgpreview" src="@Url.Content(Model.Image)" />
             </div>
             <div class="form-group">
-                <input type="submit" value="Сохранить" class="btn btn-default" />
+                <input type="submit" value="Сохранить" class="btn btn-success" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Admin_Index">Вернуться назад</a>
-    <a asp-action="Index">Вернуться на главную</a>
+    @Html.ActionLink("Категории", "Admin_Index")
 </div>
 
-
-
-
-
-
-
-
-
-
-@*<!DOCTYPE html>
-        <html>
-        <head>
-            <title>Редактирование категории</title>
-        </head>
-        <body>
-            <div>
-                <h3>Редактор категории</h3>
-                <form method="post">
-                    <input type="hidden" value="@ViewBag.CategoryId" name="CategoryId" />
-                    <fieldset>
-                        @Html.HiddenFor(m => m.Id)
-                        <p>
-                            @Html.LabelFor(m => m.Title, "Название категории")
-                            <br />
-                            @Html.EditorFor(m => m.Title)
-                        </p>
-                        <p>
-                            @Html.LabelFor(m => m.Description, "Описание")
-                            <br />
-                            @Html.EditorFor(m => m.Description)
-                        </p>
-                        <p>
-                            @Html.LabelFor(m => m.Image, "Картинка")
-                            <br />
-                            @Html.EditorFor(m => m.Image)
-                        </p>
-                        <p><input type="submit" value="Отправить" /></p>
-                    </fieldset>
-                </form>
-            </div>
-        </body>
-    </html>*@
-
+@section Scripts
+{
+    <script src="~/js/ProductScript.js"></script>
+}

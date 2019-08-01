@@ -6,8 +6,28 @@
 
 <h2>Заказы</h2>
 
+
+@if (TempData["Order Add"] != null)
+{
+<div class="alert alert-success">
+    @TempData["Order Add"]
+</div>
+}
+@if (TempData["Order Edit"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Order Edit"]
+    </div>
+}
+@if (TempData["Order Delete"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Order Delete"]
+    </div>
+}
+
 <p>
-    <a asp-action="Add">Создать</a>
+    @Html.ActionLink("Добавить новый заказ", "Add", "", htmlAttributes: new { @class = "btn btn-success" })
 </p>
 <table class="table">
     <thead>
@@ -41,36 +61,36 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataTimeOrder)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Commentary)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Surname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Count)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Child)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Phone)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a> |
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataTimeOrder)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Commentary)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Surname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Count)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Child)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>

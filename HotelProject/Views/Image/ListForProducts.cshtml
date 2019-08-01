@@ -4,10 +4,11 @@
     ViewData["Title"] = "ListForProducts";
 }
 
-<h2>IndexForProducts</h2>
+<h2>Список продуктов</h2>
 
 <p>
-    <a asp-action="Add">Create New</a>
+    @Html.ActionLink("Добавить новую картинку", "Add", "", htmlAttributes: new { @class = "btn btn-success" })
+    @*<a asp-action="Add">Создать новый</a>*@
 </p>
 <table class="table">
     <thead>
@@ -17,9 +18,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ImagePath)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductId)
             </th>
         </tr>
     </thead>
@@ -31,14 +29,11 @@
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ImagePath)
+                    <p><img src="@Url.Content(item.ImagePath)"></p>
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ProductId)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Удалить</a>
                 </td>
             </tr>
         }

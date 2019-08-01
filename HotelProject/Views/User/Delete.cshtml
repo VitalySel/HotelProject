@@ -7,24 +7,27 @@
 <div>
     <h4>Пользователи</h4>
     <dl class="dl-horizontal">
-        <dt>Логин</dt>
+        <dt>Логин: </dt>
         <dd>
-            @Html.DisplayFor(model => model.Login)
+            @Html.DisplayFor(model => model.Email)
         </dd>
-        <dt>Пароль</dt>
+        <dt>Пароль: </dt>
         <dd>
             @Html.DisplayFor(model => model.Password)
         </dd>
-        <dt>Роль</dt>
+        <dt>Роль: </dt>
         <dd>
             @Html.DisplayFor(model => model.RoleId)
         </dd>
     </dl>
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
-        <input type="submit" value="Удалить" class="btn btn-default" /> |
-        <a asp-action="Index">Вернуться назад</a>
+        <input type="submit" value="Удалить" class="btn btn-danger" /> |
     </form>
+</div>
+
+<div>
+    @Html.ActionLink("Пользователи", "Index")
 </div>
 
 
@@ -39,30 +42,29 @@
 
 
 
-
 @*<!DOCTYPE html>
-<html>
-<head>
-    <title>Удаление пользователей</title>
-</head>
-<body>
-    <dl>
-        <dt>Логин</dt>
-        <dd>
-            @Html.DisplayFor(model => model.Login)
-        </dd>
-        <dt>Пароль</dt>
-        <dd>
-            @Html.DisplayFor(model => model.Password)
-        </dd>
-        <dt>Роль</dt>
-        <dd>
-            @Html.DisplayFor(model => model.RoleId)
-        </dd>
-    </dl>
-    @using (Html.BeginForm())
-    {
-        <input type="submit" value="Удалить" />
-    }
-</body>
-</html>*@
+    <html>
+    <head>
+        <title>Удаление пользователей</title>
+    </head>
+    <body>
+        <dl>
+            <dt>Логин</dt>
+            <dd>
+                @Html.DisplayFor(model => model.Login)
+            </dd>
+            <dt>Пароль</dt>
+            <dd>
+                @Html.DisplayFor(model => model.Password)
+            </dd>
+            <dt>Роль</dt>
+            <dd>
+                @Html.DisplayFor(model => model.RoleId)
+            </dd>
+        </dl>
+        @using (Html.BeginForm())
+        {
+            <input type="submit" value="Удалить" />
+        }
+    </body>
+    </html>*@

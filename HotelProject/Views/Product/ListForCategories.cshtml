@@ -4,10 +4,11 @@
     ViewData["Title"] = "ListForCategories";
 }
 
-<h2>IndexForCategory</h2>
+<h2>Cписок продуктов</h2>
 
 <p>
-    <a asp-action="Product_Add">Create New</a>
+    @Html.ActionLink("Добавить новый продукт", "Product_Add", "", htmlAttributes: new { @class = "btn btn-success" })
+    @*<a asp-action="Product_Add">Создать новый</a>*@
 </p>
 <table class="table">
     <thead>
@@ -27,9 +28,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Price)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CategoryId)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -47,17 +45,15 @@
                     @Html.DisplayFor(modelItem => item.ShortDescription)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Image)
+                    <p><img src="@Url.Content(item.Image)"></p>
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Price)
                 </td>
+           
                 <td>
-                    @Html.DisplayFor(modelItem => item.CategoryId)
-                </td>
-                <td>
-                    <a asp-action="Product_Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Product_Delete" asp-route-id="@item.Id">Delete</a>
+                    <a asp-action="Product_Edit" asp-route-id="@item.Id">Редактировать</a> |
+                    <a asp-action="Product_Delete" asp-route-id="@item.Id">Удалить</a>
                 </td>
             </tr>
         }

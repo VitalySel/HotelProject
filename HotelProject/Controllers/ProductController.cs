@@ -9,9 +9,11 @@ using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HotelProject.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class ProductController : Controller
     {
         HotelContext db;
@@ -21,7 +23,7 @@ namespace HotelProject.Controllers
             _appEnvironment = appEnvironment;
             db = context;
         }
-        public IActionResult Product_Index(int? categoryId)
+        public IActionResult Product_Index(int? categoryId,int page = 1)
         {
             
             var productc = db.Products.Include(p => p.Category);
@@ -34,11 +36,18 @@ namespace HotelProject.Controllers
             List<Category> category = db.Categories.ToList();
             category.Insert(0, new Category { Title = "Все", Id = 0 });
 
+
             ProductFilter plv = new ProductFilter
             {
                 Products = products.ToList(),
                 Categories = new SelectList(category, "Id", "Title"),
             };
+
+            //постраничная навигация
+
+            
+            
+
             return View(plv);
         }
         [HttpGet]
@@ -49,18 +58,7 @@ namespace HotelProject.Controllers
             List<Propertie> propertieList = new List<Propertie>();
             propertieList = (from propertie in db.Properties select propertie).ToList();
 
-            var properties = new List<Propertie>();
-            foreach (var propertie in propertieList)
-            {
-                properties.Add(new Propertie()
-                {
-                    Id = propertie.Id,
-                    Title = propertie.Title,
-                    Description = propertie.Description,
-                    isChecked = false
-                });
-            }
-            product.PropertyList = properties;
+            product.PropertyList = propertieList;
             
             SelectList categor = new SelectList(db.Categories, "Id", "Title");
             ViewBag.Categories = categor;
@@ -96,61 +94,23 @@ namespace HotelProject.Controllers
 
                 db.Products.Add(product);
                 db.SaveChanges();
-
-                //HotelContext dbnew = context
-                int productId = db.Products.Last().Id;
+                int newId = product.Id;
+                
                 List<Propertie> properties = productViewModel.PropertyList.Where(prop => prop.isChecked == true).ToList();
                 foreach (var item in properties)
                 {
                     PropValue propValue = new PropValue
                     {
-                        ProductId = productViewModel.Id,
+                        ProductId = product.Id,
                         PropertieId = item.Id,
                     };
                     db.PropValues.Add(propValue);
                 }
 
-                //уникальность заголовка и описания
-                if (db.Products.Any(x => x.Title == product.Title))
-                {
-                    ModelState.AddModelError("", "Данный заголовок уже занят");
-                    return View(product);
-                }
-                else if (db.Products.Any(x => x.Description == product.Description))
-                {
-                    ModelState.AddModelError("", "Данное описание уже занято");
-                    return View(product);
-                }
-
                 db.SaveChanges();
  
 
-                TempData["SM"] = "Вы добавили новый продукт";
-
-                //foreach (var PropertieId in properties)
-                //{
-                //    var propertie = db.Properties.Find(PropertieId);
-                //    product.Properties.Add(propertie);
-                //}
-
-                //var selectedProperties = product.Properties.Where(x => x.isChecked).Select(x => x.Id).ToList();
-
-
-                //var countChecked = 0;
-                //var countUnchecked = 0;
-                //for (int i = 0; i < objPropertie.Count(); i++)
-                //{
-                //    if (objPropertie[i].isChecked == true)
-                //    {
-                //        countChecked = countChecked + 1;
-                //    }
-                //    else
-                //    {
-                //        countUnchecked = countUnchecked + 1;
-                //    }
-                //}
-
-
+                TempData["Product Add"] = "Вы добавили новый продукт";
 
                 return RedirectToAction("Product_Index");
             }
@@ -161,27 +121,73 @@ namespace HotelProject.Controllers
             List<Product> prods = await db.Products.Where(product => product.CategoryId == categoryId).ToListAsync();
             return View(prods);
         }
+
+
         [HttpGet]
         public IActionResult Product_Edit(int? id)
         {
             Product product = db.Products.Find(id);
-            if (product != null)
+            var model = new ProductWithPropertiesViewModel()
             {
-                SelectList categor = new SelectList(db.Categories, "Id", "Title", product.CategoryId);
+                Id = product.Id,
+                Title = product.Title,
+                Description = product.Description,
+                ShortDescription = product.ShortDescription,
+                Image = product.Image,
+                Price = product.Price,
+                CategoryId = product.CategoryId,
+            };
+            List<Propertie> propertieList = new List<Propertie>();
+            propertieList = (from propertie in db.Properties select propertie).ToList();
+
+            List<PropValue> propValues = db.PropValues.Where(p => p.ProductId == id).ToList();
+
+            if (propValues.Count != 0)
+            {
+
+                foreach (var propertie in propertieList)
+                {
+                    if (propValues.FirstOrDefault(pV => pV.PropertieId == propertie.Id) != null)
+                    {
+                        propertie.isChecked = true;
+                    }
+                }
+            }
+            model.PropertyList = propertieList;
+
+            if (model != null)
+            {
+                SelectList categor = new SelectList(db.Categories, "Id", "Title", model.CategoryId);
                 ViewBag.Categories = categor;
                
-                return View(product);
+                return View(model);
             }
-            var propertieList = db.Properties.ToList();
+
+            //var propertieList = db.Properties.ToList();
             ViewBag.Prop = propertieList;
+
             return View();
 
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Product_Edit([Bind("Id,Title,Description,ShortDescription,Price,CategoryId")] Product product, IFormFile uploadedFile)
+        public async Task<IActionResult> Product_Edit([Bind("Id,Title,Description,ShortDescription,Price,CategoryId")] Product product, IFormFile uploadedFile, ProductWithPropertiesViewModel productViewModel)
         {
+            //ошибка с изображениями
             db.Entry(product).State = EntityState.Modified;
+
+            var model = new ProductWithPropertiesViewModel()
+            {
+                Id = product.Id,
+                Title = product.Title,
+                Description = product.Description,
+                ShortDescription = product.ShortDescription,
+                Image = product.Image,
+                Price = product.Price,
+                CategoryId = product.CategoryId,
+            };
+          
+
             if (ModelState.IsValid)
             {
                 if (uploadedFile != null)
@@ -193,7 +199,24 @@ namespace HotelProject.Controllers
                     }
                     product.Image = path;
                 }
+                //db.SaveChanges();
+
+                //int productid = model.Id;
+                //List<Propertie> properties = productViewModel.PropertyList.Where(prop => prop.isChecked == true).ToList();
+                //foreach (var item in properties)
+                //{
+                //    PropValue propValue = new PropValue
+                //    {
+                //        ProductId = model.Id,
+                //        PropertieId = item.Id,
+                //    };
+                //    db.PropValues.Add(propValue);
+                //}
+
+
+
                 db.SaveChanges();
+                TempData["Product Edit"] = "Вы изменили продукт";
                 return RedirectToAction("Product_Index");
             }
             return View(product);
@@ -214,6 +237,7 @@ namespace HotelProject.Controllers
 
             db.Products.Remove(b);
             db.SaveChanges();
+            TempData["Product Delete"] = "Вы удалили продукт";
             return RedirectToAction("Product_Index");
         }
     }

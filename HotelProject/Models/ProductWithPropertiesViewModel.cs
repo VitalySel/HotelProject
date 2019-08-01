@@ -18,5 +18,6 @@ namespace HotelProject.Models
         public Category Category { get; set; }
 
         public List<Propertie> PropertyList { get; set; }
+
     }
 }

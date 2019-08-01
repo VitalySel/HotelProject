@@ -12,25 +12,27 @@
         <form asp-action="Product_Add" asp-controller="Product" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
+                <label asp-for="Title" class="control-label">Название</label>
                 <input asp-for="Title" class="form-control" />
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
+                <label asp-for="Description" class="control-label">Описание</label>
                 <input asp-for="Description" class="form-control" />
                 <span asp-validation-for="Description" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ShortDescription" class="control-label"></label>
+                <label asp-for="ShortDescription" class="control-label">Краткое описание</label>
                 <input asp-for="ShortDescription" class="form-control" />
                 <span asp-validation-for="ShortDescription" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="file" name="uploadedFile" />
+                <label class="control-label">Изображение</label>
+                <input type="file" name="uploadedFile" id="UploadFile" />
+                <img id="imgpreview" src="~/files/no_image.png" />
             </div>
             <div class="form-group">
-                <label class="control-label">Category</label><br />
+                <label class="control-label">Категория</label><br />
                 @Html.DropDownListFor(model => model.CategoryId, ViewBag.Categories as SelectList)
             </div>
             <div class="checkbox">
@@ -44,20 +46,24 @@
                     <br />
                 }
             </div>
-            <div></div>
 
             <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
+                <label asp-for="Price" class="control-label">Цена</label>
                 <input asp-for="Price" class="form-control" />
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Создать" class="btn btn-default" />
+                <input type="submit" value="Создать" class="btn btn-success" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Вернуться на главную</a>
+    @Html.ActionLink("Продукты", "Product_Index")
 </div>
+
+@section Scripts
+{
+    <script src="~/js/ProductScript.js"></script>
+}

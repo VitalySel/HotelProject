@@ -9,11 +9,11 @@ using Microsoft.AspNetCore.Http;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Rendering;
-
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace HotelProject.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class ImageController : Controller
     {
         HotelContext db;
@@ -27,6 +27,8 @@ namespace HotelProject.Controllers
         {
             var image = db.Images.Include(p => p.Product);
 
+
+            //фильтр по продуктам
             IQueryable<Image> images = db.Images.Include(p => p.Product);
             if (productId != null && productId != 0)
             {
@@ -75,6 +77,13 @@ namespace HotelProject.Controllers
             }
             return RedirectToAction("Index");   
         }
+
+        public async Task<IActionResult> ListForProducts(int productId)
+        {
+            List<Image> images = await db.Images.Where(image => image.ProductId == productId).ToListAsync();
+            return View(images);
+        }
+
         [HttpGet]
         public IActionResult Edit(int? id)
         {
@@ -107,6 +116,8 @@ namespace HotelProject.Controllers
                     //Image file = new Image { Title = image.Title, ImagePath = path, ProductId = productId };
                     image.ImagePath = path;
 
+
+                    //уникальность заголовка
                     if (db.Images.Any(x => x.Title == image.Title))
                     {
                         ModelState.AddModelError("", "Данный заголовок уже занят");
