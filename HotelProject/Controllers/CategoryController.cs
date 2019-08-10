@@ -69,6 +69,26 @@ namespace HotelProject.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> Admin_Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var category = await db.Categories
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (category == null)
+            {
+                return NotFound();
+            }
+
+            return View(category);
+        }
+
+
+
+        [HttpGet]
         public IActionResult Admin_Edit(int id)
         {
             Category category = db.Categories.Find(id);

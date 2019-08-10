@@ -25,7 +25,7 @@
 }
 
 <p>
-    @Html.ActionLink("Добавить нового клиента", "Add_Client", "", htmlAttributes: new { @class = "btn btn-success" })
+    @Html.ActionLink("Добавить нового клиента", "Client_Add", "", htmlAttributes: new { @class = "btn btn-success" })
 
 </p>
 <table class="table">
@@ -57,6 +57,7 @@
                 </td>
                 <td>
                     <a asp-action="Client_Edit" asp-route-id="@item.Id">Редактировать</a> |
+                    <a asp-action="Client_Details" asp-route-id="@item.Id">Детали</a> |
                     <a asp-action="Client_Delete" asp-route-id="@item.Id">Удалить</a>
                 </td>
             </tr>

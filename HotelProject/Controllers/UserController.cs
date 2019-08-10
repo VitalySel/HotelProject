@@ -21,6 +21,22 @@ namespace HotelProject.Controllers
         {
             return View(db.Users.ToList());
         }
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var user = await db.Users
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return View(user);
+        }
         [HttpGet]
         public IActionResult Add()
         {

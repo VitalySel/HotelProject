@@ -21,6 +21,25 @@ namespace HotelProject.Controllers
         {
             return View(db.Clients.ToList());
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Client_Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var client = await db.Clients
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (client == null)
+            {
+                return NotFound();
+            }
+
+            return View(client);
+        }
+
         [HttpGet]
         public IActionResult Client_Add()
         {
@@ -32,19 +51,6 @@ namespace HotelProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                //уникальность телефона и почты
-                if (db.Clients.Any(x => x.Phone == client.Phone))
-                {
-                    ModelState.AddModelError("", "Данный телефон уже был указат");
-                    return View(client);
-                }
-                else if (db.Clients.Any(x => x.Email == client.Email))
-                {
-                    ModelState.AddModelError("", "Данная почта уже была указана");
-                    return View(client);
-                }
-
-
                 db.Clients.Add(client);
                 TempData["Add Client"] = "Вы добавили нового клиента";
                 db.SaveChanges();

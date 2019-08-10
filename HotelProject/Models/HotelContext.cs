@@ -34,7 +34,7 @@ namespace HotelProject.Models
             string userRoleName = "user";
 
             string adminEmail = "admin@mail.ru";
-            string adminPassword = "123456";
+            string adminPassword = "12";
 
             Role adminRole = new Role { Id = 1, Name = adminRoleName };
             Role userRole = new Role { Id = 2, Name = userRoleName };

@@ -1,0 +1,43 @@
+﻿@model HotelProject.Models.Propertie
+
+@{
+    ViewData["Title"] = "Propertie_Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Детализация</h2>
+
+<div>
+    <h4>Свойства</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title):
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Description):
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Image):
+        </dt>
+        <dd>
+            @if (Model.Image != null)
+            {
+                <img src="@Url.Content(Model.Image)" />
+            }
+            else
+            {
+                <img id="imgpreview" src="~/files/no_image.png" />
+            }
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Свойства", "Propertie_Index")
+</div>

@@ -26,6 +26,24 @@ namespace HotelProject.Controllers
         {
             return View();
         }
+
+        public async Task<IActionResult> Option_Details(int? id)
+        {
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var option = await db.Options
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (option == null)
+            {
+                return NotFound();
+            }
+
+            return View(option);
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Option_Add([Bind("Id,Title,Description,Price")] Option option)

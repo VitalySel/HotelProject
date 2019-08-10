@@ -21,6 +21,7 @@ namespace HotelProject.Models
         [Required(ErrorMessage = "Не указана цена")]
         public int Price { get; set; }
         [UIHint("Boolean")]
+        [Display(Name = "Добавление")]
         public bool IsPublish { get; set; } 
     }
 }

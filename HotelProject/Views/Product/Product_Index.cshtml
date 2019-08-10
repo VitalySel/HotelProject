@@ -89,6 +89,7 @@
                 </td>
                 <td>
                     <a asp-action="Product_Edit" asp-route-id="@item.Id">Редактировать</a> |
+                    <a asp-action="Product_Details" asp-route-id="@item.Id">Детали</a> |
                     <a asp-action="Product_Delete" asp-route-id="@item.Id">Удалить</a> |
                     <a asp-area="" asp-controller="Image" asp-action="ListForProducts" asp-route-productId="@item.Id">Картинки</a>
                 </td>

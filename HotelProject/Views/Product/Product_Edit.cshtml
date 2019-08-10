@@ -11,6 +11,7 @@
         <form asp-action="Product_Edit" method="post" asp-controller="Product" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" value="@ViewBag.ProductId" name="ProductId" />
+            <input type="hidden" asp-for="Image" value="@Model.Image" />
             <div class="form-group">
                 <label asp-for="Title" class="control-label">Название</label>
                 <input asp-for="Title" class="form-control" />
@@ -29,7 +30,7 @@
             <div class="form-group">
                 <label class="control-label">Изображение</label>
                 <input type="file" name="uploadedFile" id="UploadFile" />
-                <img id="imgpreview" src="@Url.Content(Model.Image)"/>
+                <img id="imgpreview" src="@Url.Content(Model.Image)" />
             </div>
             <div class="form-group">
                 <label asp-for="Price" class="control-label">Цена</label>

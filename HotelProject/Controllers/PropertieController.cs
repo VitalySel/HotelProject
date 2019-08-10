@@ -27,6 +27,23 @@ namespace HotelProject.Controllers
         {
             return View(db.Properties.ToList());
         }
+
+        public async Task<IActionResult> Propertie_Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var propertie = await db.Properties
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (propertie == null)
+            {
+                return NotFound();
+            }
+
+            return View(propertie);
+        }
         [HttpGet]
         public IActionResult Propertie_Add()
         {

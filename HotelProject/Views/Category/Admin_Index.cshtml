@@ -5,6 +5,33 @@
 }
 <h2>Категории</h2>
 
+
+
+@*Не знаю что передать в switch *@
+
+@*@switch (TempData[""])
+{
+    case "SM":
+        <div class="alert alert-success">
+            @TempData["SM"]
+        </div>
+        break;
+    case "Edit Message":
+        <div class="alert alert-success">
+            @TempData["Edit Message"]
+        </div>
+        break;
+    case "Delete Message":
+        <div class="alert alert-success">
+            @TempData["Delete Message"]
+        </div>
+        break;
+}*@
+
+
+
+
+
 @if (TempData["SM"] != null)
 {
     <div class="alert alert-success">
@@ -56,6 +83,7 @@
                 </td>
                 <td>
                     <a asp-action="Admin_Edit" asp-route-id="@item.Id">Редактировать</a> |
+                    <a asp-action="Admin_Details" asp-route-id="@item.Id">Детали</a> |
                     <a asp-action="Admin_Delete" asp-route-id="@item.Id">Удалить</a> |
                     <a asp-area="" asp-controller="Product" asp-action="ListForCategories" asp-route-categoryId="@item.Id">Продукты</a>
                 </td>

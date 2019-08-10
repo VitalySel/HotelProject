@@ -21,6 +21,23 @@ namespace HotelProject.Controllers
         {
             return View(db.Orders.ToList());
         }
+
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var order = await db.Orders
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            return View(order);
+        }
         [HttpGet]
         public IActionResult Add()
         {
@@ -34,6 +51,8 @@ namespace HotelProject.Controllers
             {
                 db.Orders.Add(order);
                 TempData["Order Add"] = "Вы добавили новый заказ";
+
+                //ошибка, требует продукт??
                 db.SaveChanges();
 
                 return RedirectToAction("Index");
