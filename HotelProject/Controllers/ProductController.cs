@@ -71,6 +71,7 @@ namespace HotelProject.Controllers
         [HttpGet]
         public IActionResult Product_Add()
         {
+            //
             ProductWithPropertiesViewModel product = new ProductWithPropertiesViewModel();
 
             List<Propertie> propertieList = new List<Propertie>();
